@@ -36,7 +36,7 @@ Verbs: Add, Remove, Know when (is full), Create, Know if (item isn't in basket)
 | Objects  | Properties    | Messages             | Messages to messages | Output                                                 |
 | :------  | :---------    | :-------             |                      | :-----                                                 |
 | Basket   | contents      | add                  |    isFull?           | contents + new item with next ID, increment ID counter |
-|          | capacity(num) | remove               | containsItemofThisID | contents - the removed item                            |
+|          | capacity      | remove               | containsItemofThisID | contents - the removed item                            |
 |          | ID counter    | changeCapacity       |                      | number                                                 |
 |          | price key     | sumPrices            |                      | function that adds all prices                          |
 | Bagel    |  ID           |  checkPrice          |                      |                                                        |
