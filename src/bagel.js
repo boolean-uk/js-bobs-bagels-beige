@@ -1,5 +1,7 @@
 const deals = require("../src/deals.js");
 
+
+// A file with all the inventory already exists
 const inventory = [
     {
       "sku": "BGLO",
@@ -53,7 +55,7 @@ const inventory = [
       ]
     },
   ]
-
+// This should be in another class (Inventory)
 function findBySKU(SKU) {
     return inventory.find(bagel => bagel['sku'] === SKU)
   }
@@ -64,17 +66,17 @@ class Bagel {
         this.SKU = SKU
         this.type = findBySKU(SKU).variant
         this.price = findBySKU(SKU).price
-        this.offer = SKU === "COF"
-        ? "buy a coffee and plain bagel for 1.25"
+        this.offer = SKU === "COF"                        // Hard coded offer
+        ? "buy a coffee and plain bagel for 1.25"         // Could be an issue for the future
         : `${deals[SKU][0]} ${this.type} Bagels for ${deals[SKU][1]}`
     }
 
   static getPriceOfBagel(SKU) {
-    return findBySKU(SKU).price
+    return findBySKU(SKU).price // Should return the object's property (this.price)
   }
 
   static getTypeOfBagel(SKU) {
-    return findBySKU(SKU).variant
+    return findBySKU(SKU).variant // Should return the object's property (this.type)
   }
 
 }

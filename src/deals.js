@@ -4,5 +4,5 @@ const deals = {
     "BGLE": [6,2.49],
     "COF": [1,.99,"BGLP",.26]
 }
-
+// Could reuse the structre, seems simple enough, but could lack features
 module.exports = deals
