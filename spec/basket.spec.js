@@ -37,10 +37,8 @@ describe("Basket", () => {
   });
 
   it("when Basket is full", () => {
-    const expected = "basket is full";
     basket.addBagel("BGLO", 4);
-    const result = basket.basketIsFull();
-    expect(result).toEqual(expected);
+    expect(basket.basketIsFull()).toBe(true);
   });
 
   it("prevent adding bagels past basket capacity", () => {
@@ -53,10 +51,10 @@ describe("Basket", () => {
   });
 
   it("create basket with larger capacity", () => {
-    const expected = true;
     const largeBasket = new Basket(5);
-    const result = largeBasket.capacity > basket.capacity;
-    expect(result).toEqual(expected);
+    largeBasket.addBagel('BGLE', 5)
+    expect(largeBasket.capacity).toEqual(5);
+    expect(largeBasket.contents.length).toEqual(5);
   });
 
   it("cannot remove an item that isn't in the basket", () => {

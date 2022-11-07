@@ -34,7 +34,7 @@ class Basket {
 
   basketIsFull() {
     if (this.contents.length >= this.capacity) {
-      return "basket is full";
+      return true;
     }
     return false;
   }
