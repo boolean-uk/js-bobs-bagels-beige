@@ -79,4 +79,7 @@ class Bagel {
 
 }
 
-module.exports = Bagel
+module.exports = {
+  Bagel,
+  findBySKU
+}
