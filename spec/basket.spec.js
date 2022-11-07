@@ -8,7 +8,7 @@ describe("Basket", () => {
         basket = new Basket();
     });
 
-    it("basket is empty", () => {
+    it("a new basket is empty", () => {
         const expected = []
         const result = basket.contents
         expect(result).toEqual(expected);
