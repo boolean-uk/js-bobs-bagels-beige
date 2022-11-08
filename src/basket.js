@@ -10,15 +10,7 @@ class Basket {
   }
 
   addBagel(SKU, numOfBagels = 1) {
-    for (let i = 0; i < numOfBagels; i++) {
-        if (this.basketIsFull()) {
-            return 'Basket is full'
-        }
-        this.IDcounter++;
-        const id = this.IDcounter;
-        let bagelItem = new Bagel(SKU, id);
-        this.contents.push(bagelItem);
-    }
+    this.#addMultipleBagelsLoop(SKU,numOfBagels)
     return this.contents;
   }
 
@@ -53,7 +45,7 @@ class Basket {
   }
 
   static getSubtotal(counts, SKU) {
-    const { count, dealQuantity, dealPrice, bagelPrice } = this.#getDealPrice(counts, SKU);
+    const { count, dealQuantity, dealPrice, bagelPrice } = this.#getDeals(counts, SKU);
     const dealSum = Math.floor(count / dealQuantity) * dealPrice;
     const nonDealSum = (count % dealQuantity) * bagelPrice;
     return Number((dealSum + nonDealSum).toFixed(2));
@@ -65,12 +57,13 @@ class Basket {
     const counts = this.counts;
     let total = 0;
     for (let SKU in counts) {
-      const { count, dealQuantity, dealPrice, bagelPrice } = this.#getDealPrice(counts, SKU);
-      if (deals.hasOwnProperty(SKU)) {
-        const dealSum = Math.floor(count / dealQuantity) * dealPrice;
-        const nonDealSum = (count % dealQuantity) * bagelPrice;
-        total += dealSum + nonDealSum;
-      }
+      const { count, dealQuantity, dealPrice, bagelPrice } = this.#getDeals(counts, SKU);
+      calcDealPrice(SKU, count, dealQuantity, dealPrice, bagelPrice);
+      calcCoffeeAndBagelDeal(dealQuantity, SKU);
+    }
+    return Number(total.toFixed(2));
+
+    function calcCoffeeAndBagelDeal(dealQuantity, SKU) {
       if (dealQuantity === 1) {
         // adhoc application of coffee deal saving
         const BOGOFSKU = `${deals[SKU][2]}`;
@@ -79,10 +72,29 @@ class Basket {
         total -= numOfDiscounts * saving;
       }
     }
-    return Number(total.toFixed(2));
+
+    function calcDealPrice(SKU, count, dealQuantity, dealPrice, bagelPrice) {
+      if (deals.hasOwnProperty(SKU)) {
+        const dealSum = Math.floor(count / dealQuantity) * dealPrice;
+        const nonDealSum = (count % dealQuantity) * bagelPrice;
+        total += dealSum + nonDealSum;
+      }
+    }
   }
 
-  #getDealPrice(counts, SKU) {
+  #addMultipleBagelsLoop(SKU, numOfBagels) {
+    for (let i = 0; i < numOfBagels; i++) {
+      if (this.basketIsFull()) {
+          return 'Basket is full'
+      }
+      this.IDcounter++;
+      const id = this.IDcounter;
+      let bagelItem = new Bagel(SKU, id);
+      this.contents.push(bagelItem);
+  }
+  }
+
+  #getDeals(counts, SKU) {
     const count = counts[SKU];
     const dealQuantity = deals[SKU][0];
     const dealPrice = deals[SKU][1];

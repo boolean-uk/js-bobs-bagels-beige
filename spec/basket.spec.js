@@ -17,7 +17,6 @@ describe("Basket", () => {
   it("can add item to basket", () => {
     basket.addBagel("BGLO");
     const result = basket.addBagel("BGLE");
-    console.log(result);
     expect(result).toEqual([new Bagel ("BGLO", 1), new Bagel ("BGLE", 2)]);
   });
 
@@ -25,7 +24,7 @@ describe("Basket", () => {
     const expected = [];
     basket.addBagel("BGLO");
     const result = basket.removeBagel(1);
-
+    console.log(result)
     expect(result).toEqual(expected);
   });
 
@@ -45,7 +44,6 @@ describe("Basket", () => {
     // shouldn't be able to add 4 bagels to basket of capacity 3.
     const expected = 3;
     const res = basket.addBagel("BGLO", 4);
-    console.log(res)
     const result = basket.contents.length;
     expect(result).toEqual(expected);
   });
