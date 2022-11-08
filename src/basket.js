@@ -38,17 +38,7 @@ class Basket {
     }
     return false;
   }
-  /*
-    getTotal() {
-        let total = 0
-        this.checkDeals()
-        console.log(this.countBagelsinBasket())
-      for (let i = 0; i < this.contents.length; i++) {
-         total += this.contents[i].price * 100
-      }
-     return total/100
-    }
-*/
+
   countBagelsInBasket() {
     this.counts = {};
     for (let i = 0; i < this.contents.length; i++) {
@@ -63,23 +53,19 @@ class Basket {
   }
 
   static getSubtotal(counts, SKU) {
-    const count = counts[SKU];
-    const dealQuantity = deals[SKU][0];
-    const dealPrice = deals[SKU][1];
-    const bagelPrice = Bagel.getPriceOfBagel(SKU);
+    const { count, dealQuantity, dealPrice, bagelPrice } = this.#getDealPrice(counts, SKU);
     const dealSum = Math.floor(count / dealQuantity) * dealPrice;
     const nonDealSum = (count % dealQuantity) * bagelPrice;
     return Number((dealSum + nonDealSum).toFixed(2));
   }
 
+
+
   getTotal() {
     const counts = this.counts;
     let total = 0;
     for (let SKU in counts) {
-      const count = counts[`${SKU}`];
-      const dealQuantity = deals[SKU][0];
-      const dealPrice = deals[SKU][1];
-      const bagelPrice = Bagel.getPriceOfBagel(SKU);
+      const { count, dealQuantity, dealPrice, bagelPrice } = this.#getDealPrice(counts, SKU);
       if (deals.hasOwnProperty(SKU)) {
         const dealSum = Math.floor(count / dealQuantity) * dealPrice;
         const nonDealSum = (count % dealQuantity) * bagelPrice;
@@ -96,12 +82,14 @@ class Basket {
     return Number(total.toFixed(2));
   }
 
-  /*this.contents.filter()
-        for(let i = 0; i < this.contents.length; i++){
-            for (let j = 0; j < )
-        }
-    }
-    */
+  #getDealPrice(counts, SKU) {
+    const count = counts[SKU];
+    const dealQuantity = deals[SKU][0];
+    const dealPrice = deals[SKU][1];
+    const bagelPrice = Bagel.getPriceOfBagel(SKU);
+    return { count, dealQuantity, dealPrice, bagelPrice };
+  }
+
 }
 
 module.exports = Basket;

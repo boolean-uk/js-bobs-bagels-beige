@@ -1,8 +1,6 @@
 const deals = require("./deals.js");
 const { findBySKU } = require("./utils/utils.js");
 
-console.log(findBySKU)
-
 class Bagel {
     constructor(SKU, id){
         this.id = id
@@ -11,7 +9,7 @@ class Bagel {
         this.price = findBySKU(SKU).price
         this.offer = this.#calculateOffer(SKU)
     }
-    
+
     #calculateOffer(SKU) {
       if (SKU === 'COF') {
         return "buy a coffee and plain bagel for 1.25"
