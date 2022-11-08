@@ -1,4 +1,4 @@
-const { Bagel, findBySKU } = require("../src/bagel.js");
+const { Bagel } = require("../src/bagel.js");
 const deals = require("../src/deals.js");
 
 class Basket {

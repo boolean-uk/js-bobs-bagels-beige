@@ -27,6 +27,7 @@
     "jasmine": "^3.10.0"
   },
   "dependencies": {
+    "nodemon": "^2.0.20",
     "twilio": "^3.73.0"
   }
 }
