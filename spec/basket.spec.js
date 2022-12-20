@@ -29,11 +29,17 @@ describe('Basket', () => {
     expect(result).toEqual(expected)
   })
 
+  // removeBagel
   it('remove item from basket', () => {
     const expected = []
     basket.addBagel('BGLO')
     const result = basket.removeBagel(1)
+    expect(result).toEqual(expected)
+  })
 
+  it("cannot remove an item that isn't in the basket", () => {
+    const expected = []
+    const result = basket.removeBagel(1)
     expect(result).toEqual(expected)
   })
 
@@ -64,12 +70,6 @@ describe('Basket', () => {
     const expected = true
     const largeBasket = new Basket(5)
     const result = largeBasket.capacity > basket.capacity
-    expect(result).toEqual(expected)
-  })
-
-  it("cannot remove an item that isn't in the basket", () => {
-    const expected = "Bagel isn't in basket"
-    const result = basket.removeBagel(1)
     expect(result).toEqual(expected)
   })
 

@@ -3,7 +3,6 @@ const Receipt = require('../src/receipt.js')
 
 describe('Receipts', () => {
   let basket
-  // let receipt
 
   beforeEach(() => {
     basket = new Basket(40)
