@@ -55,14 +55,13 @@ class Basket {
 */
   countBagelsInBasket () {
     this.counts = {}
-    for (let i = 0; i < this.contents.length; i++) {
-      const SKU = this.contents[i].SKU
-      if (!this.counts.hasOwnProperty(SKU)) {
-        this.counts[`${SKU}`] = 1
+    this.contents.forEach(item => {
+      if (!Object.hasOwnProperty.call(this.counts, item.SKU)) {
+        this.counts[item.SKU] = 1
       } else {
-        this.counts[`${SKU}`]++
+        this.counts[item.SKU]++
       }
-    }
+    })
     return this.counts
   }
 
@@ -77,21 +76,20 @@ class Basket {
   }
 
   getTotal () {
-    const counts = this.counts
     let total = 0
-    for (const SKU in counts) {
-      const count = counts[`${SKU}`]
+    for (const SKU in this.counts) {
+      const count = this.counts[SKU]
       const dealQuantity = deals[SKU][0]
       const dealPrice = deals[SKU][1]
       const bagelPrice = Bagel.getPriceOfBagel(SKU)
-      if (deals.hasOwnProperty(SKU)) {
+      if (Object.hasOwnProperty.call(deals, SKU)) {
         const dealSum = Math.floor(count / dealQuantity) * (dealPrice)
         const nonDealSum = (count % dealQuantity) * (bagelPrice)
         total += dealSum + nonDealSum
       }
       if (dealQuantity === 1) { // adhoc application of coffee deal saving
         const BOGOFSKU = `${deals[SKU][2]}`
-        const numOfDiscounts = counts[BOGOFSKU] % deals[BOGOFSKU][0]
+        const numOfDiscounts = this.counts[BOGOFSKU] % deals[BOGOFSKU][0]
         const saving = Bagel.getPriceOfBagel(BOGOFSKU) - deals[SKU][3]
         total -= numOfDiscounts * saving
       }
