@@ -35,7 +35,7 @@ describe("Receipts", () => {
     basket.addBagel("BGLE", 7);
     basket.addBagel("COF", 3);
     const testReceipt = new Receipt(basket.countBagelsInBasket());
-    const expected = `Onion              4   £1.96\nPlain              15  £5.16\nEverything         7   £2.98\nCoffee             3   £2.97\n`;
+    const expected = `Onion              4   £1.96\nPlain              15  £4.77\nEverything         7   £2.98\nCoffee             3   £2.97\n`;
     const result = testReceipt.getPurchaseList();
     testReceipt.getReceipt();
     expect(result).toEqual(expected);

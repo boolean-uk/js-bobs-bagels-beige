@@ -68,7 +68,6 @@ class Basket {
   }
 
   static getSubtotal(counts, SKU) {
-    console.log(counts);
     const count = counts[SKU];
     const dealQuantity = deals[SKU][0];
     const dealPrice = deals[SKU][1];
@@ -78,7 +77,6 @@ class Basket {
     let dealDiscount = 0;
     if (SKU === "BGLP" && count % 12 > 0 && counts.COF > 1) {
       dealDiscount = Math.min(count % 12, counts.COF) * 0.13;
-      console.log(dealDiscount);
     }
     return Number((dealSum + nonDealSum - dealDiscount).toFixed(2));
   }
