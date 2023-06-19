@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "![](./_images/bagels.jpg)",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "npx jasmine"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -16,19 +17,18 @@
     "url": "https://github.com/boolean-uk/js-bobs-bagels/issues"
   },
   "homepage": "https://github.com/boolean-uk/js-bobs-bagels#readme",
+  "prettier": "@boolean-uk/boolean-prettier-config",
   "devDependencies": {
+    "@boolean-uk/boolean-prettier-config": "^1.0.2",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-promise": "^5.1.1",
     "husky": "^7.0.4",
     "jasmine": "^5.0.1",
     "prettier": "^2.6.2"
-  },
-  "dependencies": {
-    "twilio": "^3.73.0"
   }
 }

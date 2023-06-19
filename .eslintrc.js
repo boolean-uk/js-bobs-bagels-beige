@@ -5,9 +5,11 @@ module.exports = {
     node: true,
     jasmine: true
   },
-  extends: ['standard'],
+  extends: ['standard', 'prettier'],
+  plugins: ['prettier'],
   parserOptions: {
     ecmaVersion: 12
   },
-  rules: {}
+  rules: { 'prettier/prettier': ['error'] },
+  extends: ["plugin:prettier/recommended"]
 }
