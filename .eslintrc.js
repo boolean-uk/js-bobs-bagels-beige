@@ -3,11 +3,15 @@ module.exports = {
     commonjs: true,
     es2021: true,
     node: true,
-    jasmine: true
+    jasmine: true,
   },
-  extends: ['standard'],
+  extends: ["standard", "prettier"],
+  plugins: ["prettier"],
   parserOptions: {
-    ecmaVersion: 12
+    ecmaVersion: "latest",
   },
-  rules: {}
-}
+  rules: {
+    "no-undef": "off",
+    "prettier/prettier": ["error"],
+  },
+};
