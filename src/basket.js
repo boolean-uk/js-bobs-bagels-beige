@@ -1,13 +1,18 @@
 const Bagel = require('../src/bagel.js')
 const deals = require('../src/deals.js')
-// const Receipt = require('../src/receipt.js')
+
 
 class Basket {
-  constructor (number = 3) {
+    constructor (number = 3) {
     this.contents = []
     this.IDcounter = 0
     this.capacity = number
     this.counts = {}
+    this.contactNumber = ''
+  }
+
+  addContactNumber (num) {
+    this.contactNumber = num
   }
 
   addBagel (SKU, numOfBagels = 1) {
@@ -43,17 +48,6 @@ class Basket {
     return output.price
   }
 
-  /*
-    getTotal() {
-        let total = 0
-        this.checkDeals()
-        console.log(this.countBagelsinBasket())
-      for (let i = 0; i < this.contents.length; i++) {
-         total += this.contents[i].price * 100
-      }
-     return total/100
-    }
-*/
   countBagelsInBasket () {
     this.counts = {}
     for (let i = 0; i < this.contents.length; i++) {
@@ -109,20 +103,7 @@ class Basket {
     }
     return Number(total.toFixed(2))
   }
-
-  /* this.contents.filter()
-        for(let i = 0; i < this.contents.length; i++){
-            for (let j = 0; j < )
-        }
-    }
-    */
 }
 
-// const basket = new Basket(40)
-// basket.addBagel('BGLO', 4)
-// basket.addBagel('BGLP', 15)
-// basket.addBagel('BGLE', 7)
-// basket.addBagel('COF', 3)
-// basket.countBagelsInBasket()
-// console.log(basket.getSubtotal({ BGLO: 4, BGLP: 15, BGLE: 7, COF: 3 }, 'BGLP'))
+
 module.exports = Basket

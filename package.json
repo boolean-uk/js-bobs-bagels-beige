@@ -26,6 +26,6 @@
     "jasmine": "^3.10.0"
   },
   "dependencies": {
-    "twilio": "^3.73.0"
+    "twilio": "^3.84.1"
   }
 }
