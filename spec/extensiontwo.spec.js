@@ -23,7 +23,7 @@ describe('Receipts', () => {
     basket.addBagel('BGLE', 6)
     basket.addBagel('COF', 3)
     const testReceipt = new Receipt(basket.countBagelsInBasket())
-    const expected = 'Onion Bagel        2   £0.98\n    Plain Bagel        12  £3.99\n                         (-£0.69)\n    Everything Bagel   6   £2.49\n                         (-£0.45)\n    White Coffee       3   £2.97'
+    const expected = 'Onion Bagel        2   £0.98\nPlain Bagel        12  £3.99\n                     (-£0.69)\nEverything Bagel   6   £2.49\n                     (-£0.45)\nWhite Coffee       3   £2.97\n'
     const result = testReceipt.getPurchaseList()
     testReceipt.getReceipt()
     expect(result).toEqual(expected)
@@ -35,7 +35,7 @@ describe('Receipts', () => {
     basket.addBagel('BGLE', 7)
     basket.addBagel('COF', 3)
     const testReceipt = new Receipt(basket.countBagelsInBasket())
-    const expected = 'Onion              4   £1.96\nPlain              15  £4.77\nEverything         7   £2.98\nCoffee             3   £2.97\n'
+    const expected = 'Onion Bagel        4   £1.96\nPlain Bagel        15  £4.77\n                     (-£1.08)\nEverything Bagel   7   £2.98\n                     (-£0.45)\nWhite Coffee       3   £2.97\n'
     const result = testReceipt.getPurchaseList()
     testReceipt.getReceipt()
     expect(result).toEqual(expected)
