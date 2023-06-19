@@ -67,21 +67,12 @@ class Basket {
     return this.counts
   }
 
-  //   static getSubtotal (counts, SKU) {
-  //     const count = counts[SKU]
-  //     const dealQuantity = deals[SKU][0]
-  //     const dealPrice = deals[SKU][1]
-  //     const bagelPrice = Bagel.getPriceOfBagel(SKU)
-  //     const dealSum = Math.floor(count / dealQuantity) * (dealPrice)
-  //     const nonDealSum = (count % dealQuantity) * (bagelPrice)
-  //     return Number((dealSum + nonDealSum).toFixed(2))
-  //   }
-
   static getSubtotal (counts, SKU) {
     const count = counts[SKU]
     const dealQuantity = deals[SKU][0]
     const dealPrice = deals[SKU][1]
     const bagelPrice = Bagel.getPriceOfBagel(SKU)
+    const totalNoDisc = count * bagelPrice
     const dealSum = Math.floor(count / dealQuantity) * (dealPrice)
     let nonDealBagels = (count % dealQuantity)
     let coffeAndBagelDiscount = 0
@@ -91,7 +82,9 @@ class Basket {
       nonDealBagels = nonDealBagels - coffeCount
     }
     const nonDealSum = nonDealBagels * bagelPrice
-    return Number((dealSum + nonDealSum + coffeAndBagelDiscount).toFixed(2))
+    const result = Number((dealSum + nonDealSum + coffeAndBagelDiscount).toFixed(2))
+    const savings = totalNoDisc - result
+    return [result, savings]
   }
 
   getTotal () {

@@ -3,6 +3,7 @@ const Basket = require('../src/basket.js')
 
 class Receipt {
   constructor (obj = {}) {
+    this.savings = 0
     this.purchases = obj
     this.date = new Date()
     this.total = 0
@@ -14,8 +15,14 @@ class Receipt {
 
        ${this.date.toDateString()}
 ----------------------------
+
 ${this.getPurchaseList()}
+
 Total                 £${Number(this.total.toFixed(2))}
+
+  You saved a total of £${this.savings.toFixed(2)}
+        on this shop  
+
         Thank you
       for your order!         `
   }
@@ -41,9 +48,12 @@ Total                 £${Number(this.total.toFixed(2))}
       }
       receiptLine += '£'
       const subtotal = Basket.getSubtotal(this.purchases, key)
-      receiptLine += subtotal
-      this.total += subtotal
+      receiptLine += subtotal[0]
+      this.total += subtotal[0]
+      this.savings += subtotal[1]
       purchaseLines += `${receiptLine}\n`
+      purchaseLines += subtotal[1] > 0.00 ? `                     (-£${subtotal[1].toFixed(2)})\n` : ''
+      // console.log(Math.floor(subtotal[1].toFixed(2)))
     }
     return purchaseLines
   }

@@ -23,7 +23,7 @@ describe('Receipts', () => {
     basket.addBagel('BGLE', 6)
     basket.addBagel('COF', 3)
     const testReceipt = new Receipt(basket.countBagelsInBasket())
-    const expected = 'Onion              2   £0.98\nPlain              12  £3.99\nEverything         6   £2.49\nCoffee             3   £2.97\n'
+    const expected = 'Onion Bagel        2   £0.98\n    Plain Bagel        12  £3.99\n                         (-£0.69)\n    Everything Bagel   6   £2.49\n                         (-£0.45)\n    White Coffee       3   £2.97'
     const result = testReceipt.getPurchaseList()
     testReceipt.getReceipt()
     expect(result).toEqual(expected)
