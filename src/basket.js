@@ -84,7 +84,6 @@ class Basket {
     const count = counts[SKU];
     const bagelPrice = Bagel.getPriceOfBagel(SKU);
     const normalSum = count * bagelPrice;
-
     const subtotal = Basket.getSubtotal(counts, SKU);
     const savings = normalSum - subtotal;
   
