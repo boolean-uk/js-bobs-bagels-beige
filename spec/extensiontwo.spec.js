@@ -74,6 +74,17 @@ describe("Receipts", () => {
         const result = testReceipt.getPurchaseList()
         testReceipt.getReceipt()
         expect(result).toEqual(expectedTWO);
+        
+    })
+
+    it("returns only savings for coffee", () => {
+        basket.addBagel('BGLP',4)
+        basket.addBagel('COF',3)
+        const testReceipt = new Receipt(basket.countBagelsInBasket())
+        const expectedTWO = `Plain              4   £1.17\n                     (-£0.39)\nCoffee             3   £2.97\n`
+        const result = testReceipt.getPurchaseList()
+        testReceipt.getReceipt()
+        expect(result).toEqual(expectedTWO);
 
     })
 })
