@@ -4,7 +4,8 @@
   "description": "![](./_images/bagels.jpg)",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npx jasmine",
+    "watch-mode": "nodemon --exec jasmine"
   },
   "repository": {
     "type": "git",
@@ -23,7 +24,8 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.1.1",
     "husky": "^7.0.4",
-    "jasmine": "^3.10.0"
+    "jasmine": "^3.10.0",
+    "nodemon": "^2.0.22"
   },
   "dependencies": {
     "twilio": "^3.73.0"
