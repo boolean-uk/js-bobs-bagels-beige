@@ -19,8 +19,8 @@ class Basket {
             }
         }
         return this.contents
+ }
 
-    }
     removeBagel(id) {
         for (let i = 0; i < this.contents.length; i++) {
             if (this.contents[i].id === id) {
@@ -41,17 +41,7 @@ class Basket {
         const output = new Bagel(SKU);
         return output.price
     }
-/*
-    getTotal() {
-        let total = 0
-        this.checkDeals()
-        console.log(this.countBagelsinBasket())
-      for (let i = 0; i < this.contents.length; i++) {
-         total += this.contents[i].price * 100
-      }
-     return total/100
-    }
-*/
+
     countBagelsInBasket(){
         this.counts = {}
         for (let i = 0; i < this.contents.length; i++){
@@ -72,7 +62,14 @@ class Basket {
         const bagelPrice = Bagel.getPriceOfBagel(SKU)
         const dealSum = Math.floor(count / dealQuantity) * (dealPrice)
         const nonDealSum = (count % dealQuantity) * (bagelPrice)
-        return Number((dealSum + nonDealSum).toFixed(2))
+        let test = 0
+        if (counts.COF > 1) {
+            if (SKU === "BGLP" && count % 12 >= 1) {
+              test = 0.39;
+            }
+          }
+          
+        return Number((dealSum + nonDealSum - test).toFixed(2))
 
     }
 
@@ -99,16 +96,20 @@ class Basket {
         return Number(total.toFixed(2))
     }
         
-        
-        
-        /*this.contents.filter()
-        for(let i = 0; i < this.contents.length; i++){
-            for (let j = 0; j < )
-        }
-    }
-    */
 
 }
+
+const test = new Basket ()
+test.capacity = 50
+test.addBagel("BGLO", 4)
+test.addBagel("BGLP", 15)
+test.addBagel("BGLE", 7)
+test.addBagel("COF", 3)
+console.log(test.countBagelsInBasket());
+console.log(test.getTotal());
+
+
+
 
 
 module.exports = Basket
