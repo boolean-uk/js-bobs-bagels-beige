@@ -1,7 +1,7 @@
 const Bagel = require('../src/bagel.js')
 const Basket = require('../src/basket.js')
 const accountSid = 'AC7c58fb9d8b144232bb704c036836aa4c';
-const authToken = '6759dafacd17df2aa9b01b8a3d99eb1b';
+const authToken = '43165cf4c8b4a0d14ca83eeb45fa9f4f';
 const client = require('twilio')(accountSid, authToken);
 
 class Receipt {
@@ -91,7 +91,7 @@ testReceipt.getReceipt()
 
 client.messages
     .create({
-        body: `Hey there, thank you for your order. Here is your receipt: ${testReceipt.getReceipt()}\n Your order is ${generateRandomValue()}. Please pick up your order in ${generateRandomDeliveryTime()} minutes!`,
+        body: `Hey there, thank you for your order. Here is your receipt: ${testReceipt.getReceipt()}\nYour order is ${generateRandomValue()}.\nPlease pick up your order in ${generateRandomDeliveryTime()} minutes!`,
         from: '+12178338475',
         to: '+351912121304'
     })
