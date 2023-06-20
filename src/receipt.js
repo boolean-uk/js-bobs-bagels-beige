@@ -57,12 +57,5 @@ Total                 £${Number(this.total.toFixed(2))}
     return purchaseLines
   }
 }
-const basket = new Basket()
-basket.addBagel('BGLO', 4)
-basket.addBagel('BGLP', 15)
-basket.addBagel('BGLE', 7)
-basket.addBagel('COF', 3)
-const testReceipt = new Receipt(basket.countBagelsInBasket())
-basket.attachReceipt(testReceipt)
-basket.twilioService()
+
 module.exports = Receipt

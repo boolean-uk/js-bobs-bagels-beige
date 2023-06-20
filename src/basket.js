@@ -1,6 +1,6 @@
 const Bagel = require('../src/bagel.js')
 const deals = require('../src/deals.js')
-const twilio = require('../src/twilioSms.js')
+const TwilioService = require('../src/twilioSms.js')
 
 class Basket {
   constructor (number = 3) {
@@ -109,10 +109,11 @@ class Basket {
     this.receipt = receipt
   }
 
-  twilioService () {
+  twilioReceiptSender () {
     const timer = new Date()
     const deliveryTime = `${timer.getMinutes() > 44 ? (timer.getHours() + 1) % 24 : timer.getHours()}:${(timer.getMinutes() + 15) % 60}`
-    twilio(this.receipt, deliveryTime, this.contactNumber)
+    const twilio = new TwilioService()
+    twilio.sendMessage(this.receipt, deliveryTime, this.contactNumber)
   }
 }
 
