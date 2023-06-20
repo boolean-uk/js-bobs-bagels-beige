@@ -52,4 +52,15 @@ describe("Receipts", () => {
         const result = testReceipt.total
         expect(result).toEqual(expected);
     });
+    it("returns another receipt 2", () => {
+        basket.addBagel('BGLO',4)
+        basket.addBagel('BGLP',14)
+        basket.addBagel('BGLE',7)
+        basket.addBagel('COF',1)
+        const testReceipt = new Receipt(basket.countBagelsInBasket())
+        const expected = `Onion              4   £1.96\nPlain              14  £4.64\nEverything         7   £2.98\nCoffee             1   £0.99\n`
+        const result = testReceipt.getPurchaseList()
+        testReceipt.getReceipt()
+        expect(result).toEqual(expected);
+    });
 })

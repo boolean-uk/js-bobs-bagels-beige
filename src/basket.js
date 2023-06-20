@@ -64,10 +64,16 @@ class Basket {
     const dealSum = Math.floor(count / dealQuantity) * dealPrice;
     const nonDealSum = (count % dealQuantity) * bagelPrice;
     let additionalBagelsDiscount = 0;
-    if (counts.COF > 1) {
-      if (SKU === "BGLP" && count % 12 >= 1) {
-        const remainingBagels = count % 12;
-        additionalBagelsDiscount = remainingBagels * 0.13;
+
+    if (SKU === "BGLP" && count % 12 >= 1) {
+      let remainingBagels = count % 12;
+      let coffees = counts.COF;
+      for (
+        ;
+        remainingBagels >= 1 && coffees >= 1;
+        remainingBagels--, coffees--
+      ) {
+        additionalBagelsDiscount += 0.13;
       }
     }
 
