@@ -12,8 +12,3 @@ Users should receive a text message with their order summary, and delivery time 
 ```
 Users should also be able to make orders via text message.
 ```
-
-
-auth sid: 
-auth token: 
-twilio numba: 

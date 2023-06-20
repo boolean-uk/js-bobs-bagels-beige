@@ -47,6 +47,7 @@ describe('Receipts', () => {
     basket.addBagel('BGLE', 7)
     basket.addBagel('COF', 3)
     const testReceipt = new Receipt(basket.countBagelsInBasket())
+    basket.attachReceipt(testReceipt)
     const expected = basket.getTotal()
     console.log(testReceipt.getReceipt())
     const result = testReceipt.total
