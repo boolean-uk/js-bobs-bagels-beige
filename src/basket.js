@@ -73,12 +73,25 @@ class Basket {
         remainingBagels >= 1 && coffees >= 1;
         remainingBagels--, coffees--
       ) {
-        additionalBagelsDiscount += 0.13;
+        additionalBagelsDiscount -= 0.13;
       }
     }
 
-    return Number((dealSum + nonDealSum - additionalBagelsDiscount).toFixed(2));
+    return Number((dealSum + nonDealSum + additionalBagelsDiscount).toFixed(2));
   }
+
+  static getSavings(counts, SKU) {
+    const count = counts[SKU];
+    const bagelPrice = Bagel.getPriceOfBagel(SKU);
+    const normalSum = count * bagelPrice;
+
+    const subtotal = Basket.getSubtotal(counts, SKU);
+    const savings = normalSum - subtotal;
+  
+    return Number(savings.toFixed(2));
+  }
+  
+  
 
   getTotal() {
     const counts = this.counts;

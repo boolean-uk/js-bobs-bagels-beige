@@ -23,7 +23,7 @@ describe("Receipts", () => {
         basket.addBagel('BGLE',6)
         basket.addBagel('COF',3)
         const testReceipt = new Receipt(basket.countBagelsInBasket())
-        const expected = `Onion              2   £0.98\nPlain              12  £3.99\nEverything         6   £2.49\nCoffee             3   £2.97\n`
+        const expected = `Onion              2   £0.98\nPlain              12  £3.99\n                     (-£0.69)\nEverything         6   £2.49\n                     (-£0.45)\nCoffee             3   £2.97\n`
         const result = testReceipt.getPurchaseList()
         testReceipt.getReceipt()
         expect(result).toEqual(expected);
@@ -35,7 +35,7 @@ describe("Receipts", () => {
         basket.addBagel('BGLE',7)
         basket.addBagel('COF',3)
         const testReceipt = new Receipt(basket.countBagelsInBasket())
-        const expected = `Onion              4   £1.96\nPlain              15  £4.77\nEverything         7   £2.98\nCoffee             3   £2.97\n`
+        const expected = `Onion              4   £1.96\nPlain              15  £4.77\n                     (-£1.08)\nEverything         7   £2.98\n                     (-£0.45)\nCoffee             3   £2.97\n`
         const result = testReceipt.getPurchaseList()
         testReceipt.getReceipt()
         expect(result).toEqual(expected);
@@ -58,9 +58,22 @@ describe("Receipts", () => {
         basket.addBagel('BGLE',7)
         basket.addBagel('COF',1)
         const testReceipt = new Receipt(basket.countBagelsInBasket())
-        const expected = `Onion              4   £1.96\nPlain              14  £4.64\nEverything         7   £2.98\nCoffee             1   £0.99\n`
+        const expected = `Onion              4   £1.96\nPlain              14  £4.64\n                     (-£0.82)\nEverything         7   £2.98\n                     (-£0.45)\nCoffee             1   £0.99\n`
         const result = testReceipt.getPurchaseList()
         testReceipt.getReceipt()
         expect(result).toEqual(expected);
     });
+
+    it("returns savings", () => {
+        basket.addBagel('BGLO',4)
+        basket.addBagel('BGLP',14)
+        basket.addBagel('BGLE',7)
+        basket.addBagel('COF',1)
+        const testReceipt = new Receipt(basket.countBagelsInBasket())
+        const expectedTWO = `Onion              4   £1.96\nPlain              14  £4.64\n                     (-£0.82)\nEverything         7   £2.98\n                     (-£0.45)\nCoffee             1   £0.99\n`
+        const result = testReceipt.getPurchaseList()
+        testReceipt.getReceipt()
+        expect(result).toEqual(expectedTWO);
+
+    })
 })

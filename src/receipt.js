@@ -39,10 +39,16 @@ Total                 £${Number(this.total.toFixed(2))}
             }
             receiptLine += "£"
             const subtotal = Basket.getSubtotal(this.purchases, key)
+            const savings = Basket.getSavings(this.purchases, key);
             receiptLine += subtotal
             this.total += subtotal
-            purchaseLines += `${receiptLine}\n`
-        }
+            if(savings !== 0) {
+                purchaseLines += `${receiptLine}\n                     (-£${savings})\n`;        }
+                else {
+                    purchaseLines += `${receiptLine}\n`
+                }
+            }
+          
         return purchaseLines
     }
 
