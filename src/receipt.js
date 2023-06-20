@@ -91,7 +91,7 @@ testReceipt.getReceipt()
 
 client.messages
     .create({
-        body: `Hey there, thank you for your order. Here is your receipt: ${testReceipt.getReceipt()}\nYour order is ${generateRandomValue()}.\nPlease pick up your order in ${generateRandomDeliveryTime()} minutes!`,
+        body: `Hey there, thank you for choosing Bob's Bagels. \nYour order is ${generateRandomValue()}.\nPlease pick up your order in ${generateRandomDeliveryTime()} minutes!\nHere is your receipt: ${testReceipt.getReceipt()}`,
         from: '+12178338475',
         to: '+351912121304'
     })
