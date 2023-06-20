@@ -60,7 +60,7 @@ Total                 £${Number(this.total.toFixed(2))}
 }
 
 function generateRandomValue() {
-  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
   let randomValue = '';
   
   for (let i = 0; i < 5; i++) {
@@ -71,11 +71,7 @@ function generateRandomValue() {
 }
 
 function generateRandomDeliveryTime() {
-  const hours = Math.floor(Math.random() * 24);
   const minutes = Math.floor(Math.random() * 60);
-
-  // Format the hours and minutes as two-digit strings
-  // const formattedHours = hours.toString().padStart(2, '0');
   const formattedMinutes = minutes.toString().padStart(2, '0');
 
   return formattedMinutes;
