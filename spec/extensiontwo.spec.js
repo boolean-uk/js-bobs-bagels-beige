@@ -85,4 +85,13 @@ describe('Receipts', () => {
     testReceipt.getReceipt()
     expect(result).toEqual(expectedTWO)
   })
+
+  it('returns a text message with receipt', () => {
+    basket.addBagel('BGLO', 4)
+    basket.addBagel('BGLP', 15)
+    basket.addBagel('BGLE', 7)
+    basket.addBagel('COF', 3)
+    const testReceipt = new Receipt(basket.countBagelsInBasket())
+    testReceipt.sendReceiptViaSMS()
+  })
 })

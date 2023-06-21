@@ -59,7 +59,7 @@ Total                 £${Number(this.total.toFixed(2))}
     const deliveryTime = this.generateRandomDeliveryTime();
     const message = `Hey there, thank you for choosing Bob's Bagels.\nYour order is ${randomValue}.\nPlease pick up your order in ${deliveryTime} minutes!\nHere is your receipt: ${this.getReceipt()}`;
 
-    client.messages
+    return client.messages
       .create({
         body: message,
         from: '+12178338475',
@@ -84,13 +84,5 @@ Total                 £${Number(this.total.toFixed(2))}
     return formattedMinutes;
   }
 }
-
-let basket = new Basket(40);
-basket.addBagel('BGLO', 4);
-basket.addBagel('BGLP', 15);
-basket.addBagel('BGLE', 7);
-basket.addBagel('COF', 3);
-const testReceipt = new Receipt(basket.countBagelsInBasket());
-testReceipt.sendReceiptViaSMS();
 
 module.exports = Receipt;
