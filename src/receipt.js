@@ -3,6 +3,15 @@ const Basket = require('../src/basket.js')
 const accountSid = 'AC7c58fb9d8b144232bb704c036836aa4c'
 const authToken = 'bc015ab89ddcebe2aeae2c70349ae381'
 const client = require('twilio')(accountSid, authToken)
+exports.handler = (context, event, callback) => {
+  // Create a new messaging response object
+  const twiml = new Twilio.twiml.MessagingResponse();
+  // Use any of the Node.js SDK methods, such as `message`, to compose a response
+  twiml.message('Hello, World!');
+  // Return the TwiML as the second argument to `callback`
+  // This will render the response as XML in reply to the webhook request
+  return callback(null, twiml);
+};
 
 class Receipt {
   constructor (obj = {}) {
