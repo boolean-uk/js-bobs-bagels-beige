@@ -16,6 +16,7 @@
     "url": "https://github.com/boolean-uk/js-bobs-bagels/issues"
   },
   "homepage": "https://github.com/boolean-uk/js-bobs-bagels#readme",
+  "prettier": "@boolean-uk/boolean-prettier-config",
   "devDependencies": {
     "@boolean-uk/boolean-prettier-config": "^1.0.2",
     "eslint": "^7.32.0",
