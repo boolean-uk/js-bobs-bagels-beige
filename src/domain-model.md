@@ -33,6 +33,11 @@ Objects: Basket, Bagel
 Properties: Capacity, ID
 Verbs: Add, Remove, Know when (is full), Create, Know if (item isn't in basket)
 
+<!-- re-format the table -->
+<!-- data types are missing -->
+<!-- scenarios are missing -->
+<!-- messages to messages ??? -->
+<!-- four outputs, seven methods in basket.js -->
 | Objects  | Properties    | Messages             | Messages to messages | Output                                                 |
 | :------  | :---------    | :-------             |                      | :-----                                                 |
 | Basket   | contents      | add                  |    isFull?           | contents + new item with next ID, increment ID counter |
@@ -40,4 +45,3 @@ Verbs: Add, Remove, Know when (is full), Create, Know if (item isn't in basket)
 |          | ID counter    | changeCapacity       |                      | number                                                 |
 |          | price key     | sumPrices            |                      | function that adds all prices                          |
 | Bagel    |  ID           |  checkPrice          |                      |                                                        |
-|          |  Price        |                      |                      |                                                        |
