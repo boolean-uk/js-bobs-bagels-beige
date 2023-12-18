@@ -38,10 +38,16 @@ Verbs: Add, Remove, Know when (is full), Create, Know if (item isn't in basket)
 <!-- scenarios are missing -->
 <!-- messages to messages ??? -->
 <!-- four outputs, seven methods in basket.js -->
-| Objects  | Properties    | Messages             | Messages to messages | Output                                                 |
-| :------  | :---------    | :-------             |                      | :-----                                                 |
-| Basket   | contents      | add                  |    isFull?           | contents + new item with next ID, increment ID counter |
-|          | capacity(num) | remove               | containsItemofThisID | contents - the removed item                            |
-|          | ID counter    | changeCapacity       |                      | number                                                 |
-|          | price key     | sumPrices            |                      | function that adds all prices                          |
-| Bagel    |  ID           |  checkPrice          |                      |                                                        |
+| Objects  | Properties | Messages | Notes | Output |
+| - | - | -| - | - |
+| Basket   | contents(@object[]), capacity(num(@)integer), ID counter, price key    |
+| | | addBagel(sku(@string), numOfBagels(@integer))| (note: includes new item with next ID), increment ID counter | contents(@Object[])|
+|          | | removeBagel(id(@integer)) | contents - the removed item  |
+|          | | setCapacity(newCapacity(@Integer))| | number |
+|          | | getTotal() || function that adds all prices |
+|          | | countBagelsInBasket()|| |
+|          | | getSubTotal()|| |
+|          | | basketIsFull()?  || |
+|          | | containsItemofThisID()?  | | |
+| Bagel    |  ID(@integer)       | getPriceOfBagel(sku(@string)) ||
+| |        | getPriceOfBagel(sku(@string)) ||
