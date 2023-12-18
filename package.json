@@ -4,7 +4,9 @@
   "description": "![](./_images/bagels.jpg)",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prepare": "husky install",
+    "format": "npx prettier . --write",
+    "test": "npx jasmine"
   },
   "repository": {
     "type": "git",
