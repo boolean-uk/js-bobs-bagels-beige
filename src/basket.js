@@ -21,7 +21,7 @@ class Basket {
     if(SKU.length < 3 || SKU.length > 4) {
       throw new Error('invalid sku - should contain 3 or 4 characters')
     }
-    if(SKU.toUpperCase !== SKU) {
+    if(SKU.toUpperCase() !== SKU) {
       throw new Error('invalid sku - should be capitalised')
     }
  
@@ -37,13 +37,18 @@ class Basket {
   }
 
   removeBagel (id) {
+    const foundItemById = this.contents.find((i) => i.id === id)
+
+    if(!foundItemById) {
+      throw new Error("bagel not found")
+    }
+
     for (let i = 0; i < this.contents.length; i++) {
       if (this.contents[i].id === id) {
         this.contents.splice([i], 1)
         return this.contents
       }
     }
-    return "Bagel isn't in basket"
   }
 
   // returns a boolean or a string - should return only one data type
