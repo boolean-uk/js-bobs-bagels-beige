@@ -12,7 +12,7 @@ describe('Basket', () => {
   })
 
   // is this necessary? Also 'Basket basket is empty' -> redundancies in the message
-  it('is empty', () => {
+  it(', when first created, is empty', () => {
     const expected = []
     const result = basket.contents
     expect(result).toEqual(expected)
