@@ -27,10 +27,26 @@ describe('Basket', () => {
 
   it('– item added', () => {
     const expected = [new Bagel('BGLO', 1)]
-
     const result = basket.addBagel('BGLO')
-
     expect(result).toEqual(expected)
+  })
+  // is this overkill ? It looks like overkill (at least within the context of this exercise)
+  // the alternative being to have one test (sku not found), no matter why the sku passed is invalid
+  it('throws an error when sku is invalid', () => {
+    const result = basket.addBagel('bglo')
+    expect(result).toThrowError('invalid sku - should be capitalised')
+  })
+  it('throws an error when sku is invalid', () => {
+    const result = basket.addBagel('DBDHEFNGG')
+    expect(result).toThrowError('invalid sku - should contain 4 characters')
+  })
+  it('throws an error when sku is invalid', () => {
+    const result = basket.addBagel(42)
+    expect(result).toThrowError('invalid sku - should be of type string')
+  })
+  it('throws an error when sku is missing', () => {
+    const result = basket.addBagel()
+    expect(result).toThrowError('no sku passed')
   })
 
   it('second item added', () => {
@@ -77,9 +93,8 @@ describe('Basket', () => {
 
   // redundancy in the message
   it("when item isn't found, user is informed of failed removal", () => {
-    const expected = "Bagel isn't in basket"
     const result = basket.removeBagel(1)
-    expect(result).toEqual(expected)
+    expect(result).toThrowError('bagel not found')
   })
 
   // redundancy in the message
@@ -92,4 +107,5 @@ describe('Basket', () => {
     const result = basket.getTotal()
     expect(result).toEqual(expected)
   })
+
 })
