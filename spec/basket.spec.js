@@ -114,14 +114,14 @@ describe('Basket', () => {
   it('contains', () => {
     const item1 = basket.addBagel('BGLO', 2)
     const item2 = basket.addBagel('BGLE', 3)
-    const result = basket.contains(1)
+    const result = basket.contains('BGLO')
     expect(result).toBeTrue()
   })
 
   it('does not contain', () => {
     const item1 = basket.addBagel('BGLO', 2)
     const item2 = basket.addBagel('BGLE', 3)
-    const result = basket.contains(3)
+    const result = basket.contains('BGLP')
     expect(result).toBeFalse()
   })
 })

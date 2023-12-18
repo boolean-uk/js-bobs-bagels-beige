@@ -36,6 +36,11 @@ class Basket {
     return this.contents
   }
 
+  contains(sku) {
+    const foundItemBySku = this.contents.find((i) => i.SKU === sku)
+    return !foundItemBySku ? false : true
+  }
+
   removeBagel (id) {
     const foundItemById = this.contents.find((i) => i.id === id)
 
