@@ -12,6 +12,19 @@ class Basket {
   // extract a method that updates IDcounter
   // numOfBagels = 1 -> why?, and why there?
   addBagel (SKU, numOfBagels = 1) {
+    if(!SKU) {
+      throw new Error('no sku passed')
+    }
+    if(typeof SKU !== 'string') {
+      throw new Error('invalid sku - should be of type string')
+    }
+    if(SKU.length < 3 || SKU.length > 4) {
+      throw new Error('invalid sku - should contain 3 or 4 characters')
+    }
+    if(SKU.toUpperCase() !== SKU) {
+      throw new Error('invalid sku - should be capitalised')
+    }
+ 
     for (let i = 0; i < numOfBagels; i++) {
       if (!this.basketIsFull()) {
         this.IDcounter++
@@ -23,14 +36,24 @@ class Basket {
     return this.contents
   }
 
+  contains(sku) {
+    const foundItemBySku = this.contents.find((i) => i.SKU === sku)
+    return !foundItemBySku ? false : true
+  }
+
   removeBagel (id) {
+    const foundItemById = this.contents.find((i) => i.id === id)
+
+    if(!foundItemById) {
+      throw new Error("bagel not found")
+    }
+
     for (let i = 0; i < this.contents.length; i++) {
       if (this.contents[i].id === id) {
         this.contents.splice([i], 1)
         return this.contents
       }
     }
-    return "Bagel isn't in basket"
   }
 
   // returns a boolean or a string - should return only one data type

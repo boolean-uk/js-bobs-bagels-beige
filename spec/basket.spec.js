@@ -27,11 +27,30 @@ describe('Basket', () => {
 
   it('– item added', () => {
     const expected = [new Bagel('BGLO', 1)]
-
     const result = basket.addBagel('BGLO')
-
     expect(result).toEqual(expected)
   })
+  // is this overkill ? It looks like overkill (at least within the context of this exercise)
+  // the alternative being to have one test (sku not found), no matter why the sku passed is invalid
+  describe('invalid sku', () => {  
+    
+  it('- lower case', () => {
+    const result = () => basket.addBagel('bglo')
+    expect(result).toThrowError('invalid sku - should be capitalised')
+  })
+  it('- length should be 3 or 4 char', () => {
+    const result = () => basket.addBagel('DBDHEFNGG')
+    expect(result).toThrowError('invalid sku - should contain 3 or 4 characters')
+  })
+  it('- not a string', () => {
+    const result = () => basket.addBagel(42)
+    expect(result).toThrowError('invalid sku - should be of type string')
+  })
+  it('- does not exist', () => {
+    const result = () => basket.addBagel()
+    expect(result).toThrowError('no sku passed')
+  })
+} )
 
   it('second item added', () => {
     const expected = [new Bagel('BGLO', 1), new Bagel('BGLO', 2)]
@@ -77,9 +96,8 @@ describe('Basket', () => {
 
   // redundancy in the message
   it("when item isn't found, user is informed of failed removal", () => {
-    const expected = "Bagel isn't in basket"
-    const result = basket.removeBagel(1)
-    expect(result).toEqual(expected)
+    const result = () => basket.removeBagel(1)
+    expect(result).toThrowError('bagel not found')
   })
 
   // redundancy in the message
@@ -91,5 +109,19 @@ describe('Basket', () => {
     basket.countBagelsInBasket()
     const result = basket.getTotal()
     expect(result).toEqual(expected)
+  })
+
+  it('contains', () => {
+    const item1 = basket.addBagel('BGLO', 2)
+    const item2 = basket.addBagel('BGLE', 3)
+    const result = basket.contains('BGLO')
+    expect(result).toBeTrue()
+  })
+
+  it('does not contain', () => {
+    const item1 = basket.addBagel('BGLO', 2)
+    const item2 = basket.addBagel('BGLE', 3)
+    const result = basket.contains('BGLP')
+    expect(result).toBeFalse()
   })
 })
