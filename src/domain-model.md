@@ -38,17 +38,21 @@ Verbs: Add, Remove, Know when (is full), Create, Know if (item isn't in basket)
 <!-- scenarios are missing -->
 <!-- messages to messages ??? -->
 <!-- four outputs, seven methods in basket.js -->
-| Objects  | Properties | Messages | Notes | Output |
-| - | - | -| - | - |
+| Objects  | Properties | Messages | Notes    | Scenarios | Output |
+| - | - | -| - | - | - |
 | Basket   | contents(@object[]), capacity(num(@)integer), ID counter, price key    |
-| | | addBagel(sku(@string), numOfBagels(@integer))| (note: includes new item with next ID), increment ID counter | contents(@Object[])|
-|          | | removeBagel(id(@integer)) | | contents(@Object[]) |
-|          | | setCapacity(newCapacity(@Integer))| | capacity(@integer) |
-|          | | getTotal()| |total(@number) |
-|          | | countBagelsInBasket()|| count(@number) |
-|          | | getSubTotal()|| subTotal(@number) |
-|          | | basketIsFull()? || @string / @boolean|
-|          | | containsItemofThisID()? | MISSING FROM CODE BASE| @boolean|
-| Bagel    |  ID(@integer)       | ||
-| |        | getPriceOfBagel(sku(@string)) || price(@number)|
-| |        | getTypeOfBagel(sku(@string)) || variant(@string)|
+| | | addBagel(sku(@string), numOfBagels(@integer))| (note: includes new item with next ID), increment ID counter | sku is valid | contents(@Object[])|
+| | | | TO BE ADDED | sku is NOT valid | throw error |
+|          | | removeBagel(id(@integer)) | | bagel found | contents(@Object[]) |
+|          | | | TO BE ADDED | bagel not found | throw error|
+|          | | setCapacity(newCapacity(@Integer))| | new capacity is a positive integer| capacity(@integer) |
+|          | | setCapacity(newCapacity(@Integer))| TO BE ADDED | new capacity is not a positive integer| throw error |
+|          | | getTotal()| | | total(@number) |
+|          | | countBagelsInBasket()|| | count(@number) |
+|          | | getSubTotal()|| | subTotal(@number) |
+|          | | basketIsFull()? || output: inconsistent | @string / @boolean|
+|          | | containsItemofThisID()? | MISSING FROM CODE BASE| if item found | true|
+|          | |  | | if item not found| false|
+| Bagel    |  ID(@integer)|
+| |        | getPriceOfBagel(sku(@string)) ||| price(@number)|
+| |        | getTypeOfBagel(sku(@string)) ||| variant(@string)|
