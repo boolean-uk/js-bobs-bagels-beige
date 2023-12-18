@@ -12,6 +12,19 @@ class Basket {
   // extract a method that updates IDcounter
   // numOfBagels = 1 -> why?, and why there?
   addBagel (SKU, numOfBagels = 1) {
+    if(!SKU) {
+      throw new Error('no sku passed')
+    }
+    if(typeof SKU !== 'string') {
+      throw new Error('invalid sku - should be of type string')
+    }
+    if(SKU.length < 3 || SKU.length > 4) {
+      throw new Error('invalid sku - should contain 3 or 4 characters')
+    }
+    if(SKU.toUpperCase !== SKU) {
+      throw new Error('invalid sku - should be capitalised')
+    }
+ 
     for (let i = 0; i < numOfBagels; i++) {
       if (!this.basketIsFull()) {
         this.IDcounter++

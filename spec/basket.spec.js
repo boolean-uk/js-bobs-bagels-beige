@@ -38,7 +38,7 @@ describe('Basket', () => {
   })
   it('throws an error when sku is invalid', () => {
     const result = basket.addBagel('DBDHEFNGG')
-    expect(result).toThrowError('invalid sku - should contain 4 characters')
+    expect(result).toThrowError('invalid sku - should contain 3 or 4 characters')
   })
   it('throws an error when sku is invalid', () => {
     const result = basket.addBagel(42)
