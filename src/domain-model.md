@@ -42,12 +42,13 @@ Verbs: Add, Remove, Know when (is full), Create, Know if (item isn't in basket)
 | - | - | -| - | - |
 | Basket   | contents(@object[]), capacity(num(@)integer), ID counter, price key    |
 | | | addBagel(sku(@string), numOfBagels(@integer))| (note: includes new item with next ID), increment ID counter | contents(@Object[])|
-|          | | removeBagel(id(@integer)) | contents - the removed item  |
-|          | | setCapacity(newCapacity(@Integer))| | number |
-|          | | getTotal() || function that adds all prices |
-|          | | countBagelsInBasket()|| |
-|          | | getSubTotal()|| |
-|          | | basketIsFull()?  || |
-|          | | containsItemofThisID()?  | | |
-| Bagel    |  ID(@integer)       | getPriceOfBagel(sku(@string)) ||
-| |        | getPriceOfBagel(sku(@string)) ||
+|          | | removeBagel(id(@integer)) | | contents(@Object[]) |
+|          | | setCapacity(newCapacity(@Integer))| | capacity(@integer) |
+|          | | getTotal()| |total(@number) |
+|          | | countBagelsInBasket()|| count(@number) |
+|          | | getSubTotal()|| subTotal(@number) |
+|          | | basketIsFull()? || @string / @boolean|
+|          | | containsItemofThisID()? | MISSING FROM CODE BASE| @boolean|
+| Bagel    |  ID(@integer)       | ||
+| |        | getPriceOfBagel(sku(@string)) || price(@number)|
+| |        | getTypeOfBagel(sku(@string)) || variant(@string)|
