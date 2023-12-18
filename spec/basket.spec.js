@@ -111,4 +111,17 @@ describe('Basket', () => {
     expect(result).toEqual(expected)
   })
 
+  it('contains', () => {
+    const item1 = basket.addBagel('BGLO', 2)
+    const item2 = basket.addBagel('BGLE', 3)
+    const result = basket.contains(1)
+    expect(result).toBeTrue()
+  })
+
+  it('does not contain', () => {
+    const item1 = basket.addBagel('BGLO', 2)
+    const item2 = basket.addBagel('BGLE', 3)
+    const result = basket.contains(3)
+    expect(result).toBeFalse()
+  })
 })
