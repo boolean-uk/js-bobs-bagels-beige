@@ -27,7 +27,8 @@ describe('Bagel:', () => {
         price: '0.49',
         name: 'Bagel',
         variant: 'Sesame',
-        quantity: 3
+        quantity: 3,
+        fillings: []
       }
 
       const result = bagel.details
