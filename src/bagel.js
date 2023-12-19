@@ -66,7 +66,8 @@ class Bagel {
       price: this.price,
       name: this.name,
       variant: this.variant,
-      quantity: this.quantity
+      quantity: this.quantity,
+      fillings: this.fillings || []
     }
   }
 

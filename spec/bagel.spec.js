@@ -2,22 +2,22 @@ const Bagel = require('../src/bagel.js')
 
 describe('Bagel:', () => {
   describe('New', () => {
-    // it('instance with valid sku and default quantity', () => {
-    //   const bagel = new Bagel('BGSE')
+    it('instance with valid sku and default quantity', () => {
+      const bagel = new Bagel('BGSE')
 
-    //   const expected = {
-    //     sku: 'BGSE',
-    //     price: '2.99',
-    //     name: 'Bagel Sandwich',
-    //     variant: 'Everything',
-    //     fillings: ['Bacon', 'Egg', 'Cheese'],
-    //     quantity: 1
-    //   }
+      const expected = {
+        sku: 'BGSE',
+        price: '2.99',
+        name: 'Bagel Sandwich',
+        variant: 'Everything',
+        fillings: ['Bacon', 'Egg', 'Cheese'],
+        quantity: 1
+      }
 
-    //   const result = bagel.details
+      const result = bagel.details
 
-    //   expect(result).toEqual(expected)
-    // })
+      expect(result).toEqual(expected)
+    })
 
     it('instance with valid sku and custom quantity', () => {
       const bagel = new Bagel('BGLS', 3)
