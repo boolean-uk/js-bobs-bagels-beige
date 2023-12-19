@@ -61,7 +61,6 @@ class Basket {
     }
   }
 
-  // returns a boolean or a string - should return only one data type
   isFull() {
     if (this.setBagelCount() >= this.capacity) {
       return true
@@ -69,29 +68,21 @@ class Basket {
     return false
   }
 
-  // output: variable name unclear (bagel1 would be better)
   getPriceOfBagel(sku) {
     const output = new Bagel(sku)
     return output.price
   }
 
-  /*
-    getTotal() {
-        let total = 0
-        this.checkDeals()
-        console.log(this.countBagelsinBasket())
-      for (let i = 0; i < this.contents.length; i++) {
-         total += this.contents[i].price * 100
-      }
-     return total/100
-    }
-*/
   setBagelCount() {
     this.count = 0
     for (let i = 0; i < this.contents.length; i++) {
       this.count += this.contents[i].quantity
     }
     return this.count
+  }
+
+  includesDeal(item) {
+    return item.offer && true
   }
 
   getDealInfo(sku) {
@@ -119,7 +110,6 @@ class Basket {
     const { dealQuantity, dealPrice } = this.getDealInfo(item.sku)
 
     const bagelPrice = Bagel.getPriceOfBagel(item.sku)
-    // DUMMY DATA, TO BE REPLACE WITH Bagel.getQuantity(sku)
     const bagelQuantity = item.quantity
 
     const totalDealPrice = this.getTotalDealsPrice(
@@ -143,28 +133,24 @@ class Basket {
 
   getTotal() {
     let total = 0
-    // this will work once bagels have a quantity property and each type only appears in the this.contents once
     this.contents.forEach((item) => {
       if (item.sku === 'COF') {
-        const { dealQuantity, dealPrice } = this.getdealInfo(item)
+        const { dealQuantity, dealPrice } = this.getDealInfo(item.sku)
         const numOfDiscounts = dealQuantity
         const pricePaid = numOfDiscounts * dealPrice
         total += pricePaid
       }
-      if (item.sku !== 'COF') {
+      if (item.sku !== 'COF' && this.includesDeal(item)) {
         total += this.getSubtotalWithDeals(item)
+      }
+      if (item.sku !== 'COF' && !this.includesDeal(item)) {
+        total += item.getSubtotal()
+        console.log('I ran')
       }
     })
 
     return Number(total.toFixed(2))
   }
-
-  /* this.contents.filter()
-        for(let i = 0; i < this.contents.length; i++){
-            for (let j = 0; j < )
-        }
-    }
-    */
 }
 
 module.exports = Basket

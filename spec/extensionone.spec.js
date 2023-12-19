@@ -39,10 +39,14 @@ describe('Deals', () => {
 
   it('calculate total for a large deal', () => {
     const expected = 10.43
-    basket.addBagel('BGLP', 12)
-    basket.addBagel('BGLO', 2)
-    basket.addBagel('BGLE', 6)
-    basket.addBagel('COF', 3)
+    basket.addBagel('BGLP')
+    basket.contents[0].setQuantity(12)
+    basket.addBagel('BGLO')
+    basket.contents[1].setQuantity(2)
+    basket.addBagel('BGLE')
+    basket.contents[2].setQuantity(6)
+    basket.addBagel('COF')
+    basket.contents[3].setQuantity(3)
     const result = basket.getTotal()
     expect(result).toEqual(expected)
   })
