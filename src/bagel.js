@@ -49,11 +49,18 @@ function findBySku(sku) {
   return inventory.find((bagel) => bagel.sku === sku)
 }
 class Bagel {
-  constructor(sku, id) {
+  constructor(sku, id, quantity = 1) {
+    const bagel = findBySku(sku)
+
     this.id = id
-    this.sku = sku
-    this.variant = findBySku(sku).variant
-    this.price = findBySku(sku).price
+
+    this.sku = bagel.sku
+    this.variant = bagel.variant
+    this.price = bagel.price
+    this.name = bagel.name
+    this.fillings = bagel.fillings
+    this.quantity = quantity
+  }
   }
 
   static getPriceOfBagel(sku) {
