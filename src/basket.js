@@ -9,8 +9,6 @@ class Basket {
     this.count = 0
   }
 
-  // extract a method that updates IDcounter
-  // numOfBagels = 1 -> why?, and why there?
   addBagel(sku) {
     if (!sku) {
       throw new Error('no sku passed')
@@ -26,7 +24,7 @@ class Basket {
     }
 
     if (this.isFull()) {
-      throw new Error("Basket is full!")
+      throw new Error('Basket is full!')
     }
 
     if (this.contains(sku)) {
@@ -43,7 +41,7 @@ class Basket {
 
   contains(sku) {
     const foundItemBySku = this.contents.find((i) => i.sku === sku)
-    return !foundItemBySku ? false : true
+    return !!foundItemBySku
   }
 
   removeBagel(sku) {
@@ -82,15 +80,15 @@ class Basket {
   }
 
   includesDeal(item) {
-    return item.offer && true
+    return !!item.offer
   }
 
-  getDealInfo(sku) {
-    const lowerCaseSku = sku.toLowerCase()
-    const dealQuantity = deals[lowerCaseSku].quantityRequired
-    const dealPrice = deals[lowerCaseSku].dealPrice
-    return { dealQuantity, dealPrice }
-  }
+  // getDealInfo(sku) {
+  //   const lowerCaseSku = sku.toLowerCase()
+  //   const dealQuantity = deals[lowerCaseSku].quantityRequired
+  //   const dealPrice = deals[lowerCaseSku].dealPrice
+  //   return { dealQuantity, dealPrice }
+  // }
 
   getTotalDealsPrice(bagelQuantity, dealQuantity, dealPrice) {
     const sum = Math.floor(bagelQuantity / dealQuantity) * dealPrice
@@ -106,17 +104,21 @@ class Basket {
     return sum
   }
 
-  getSubtotalWithDeals(item) {
-    const { dealQuantity, dealPrice } = this.getDealInfo(item.sku)
-
-    const bagelPrice = Bagel.getPriceOfBagel(item.sku)
+  getSubtotalWithDeals(item, deal) {
+    const dealQuantity = deal.quantityRequired
+    const dealPrice = deal.dealPrice
+    const bagelPrice = item.price
     const bagelQuantity = item.quantity
 
+    if (dealQuantity > bagelQuantity) {
+      return item.quantity * item.price
+    }
     const totalDealPrice = this.getTotalDealsPrice(
       bagelQuantity,
       dealQuantity,
       dealPrice
     )
+
     const totalPriceNotIncludedInDeals =
       this.getTotalPriceOfItemsNotIncludedInDeals(
         bagelQuantity,
@@ -133,22 +135,26 @@ class Basket {
 
   getTotal() {
     let total = 0
-    this.contents.forEach((item) => {
-      if (item.sku === 'COF') {
-        const { dealQuantity, dealPrice } = this.getDealInfo(item.sku)
-        const numOfDiscounts = dealQuantity
-        const pricePaid = numOfDiscounts * dealPrice
-        total += pricePaid
-      }
-      if (item.sku !== 'COF' && this.includesDeal(item)) {
-        total += this.getSubtotalWithDeals(item)
-      }
-      if (item.sku !== 'COF' && !this.includesDeal(item)) {
-        total += item.getSubtotal()
-        console.log('I ran')
-      }
-    })
 
+    // where we learnt of the differences between shallow and deep copies, and that we seriously had no clue what was going on until we sort of did.
+    const queue = JSON.parse(JSON.stringify(this.contents))
+
+    // processes the items which have deals on them
+    for (const key in deals) {
+      const queueItem = queue.find((i) => {
+        return i.sku === deals[key].itemSku
+      })
+      if (!queueItem) continue
+      total += this.getSubtotalWithDeals(queueItem, deals[key])
+
+      const index = queue.indexOf(queueItem)
+      queue.splice(index, 1)
+    }
+
+    // processes items which are of a variant which has NO DEAL attached to them
+    queue.forEach((item) => {
+      total += Number(item.price * item.quantity)
+    })
     return Number(total.toFixed(2))
   }
 }
