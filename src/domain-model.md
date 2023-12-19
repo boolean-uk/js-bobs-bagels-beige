@@ -56,3 +56,4 @@ Verbs: Add, Remove, Know when (is full), Create, Know if (item isn't in basket)
 | Bagel    |  ID(@integer)|
 | |        | getPriceOfBagel(sku(@string)) ||| price(@number)|
 | |        | getTypeOfBagel(sku(@string)) ||| variant(@string)|
+BasketItem | @Object, with .quantity and .price | getSubTotal() | 

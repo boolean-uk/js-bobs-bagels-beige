@@ -51,6 +51,7 @@ function findBySku(sku) {
   return inventory.find((bagel) => bagel["sku"] === sku);
 }
 
+//TODO: rename Bagel to Item or smth more generic
 class Bagel {
   constructor(sku, id) {
     this.id = id;
