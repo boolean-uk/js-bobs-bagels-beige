@@ -59,6 +59,13 @@ describe('Basket', () => {
     expect(result).toEqual(expected)
   })
 
+  fit('quantity increases when same item is added', () => {
+    basket.addBagel('BGLO')
+    const result = basket.addBagel('BGLO')
+    expect(result[0].quantity).toEqual(2)
+    expect(result.length).toEqual(1)
+  })
+
   // would add more that one item to the basket so and add expect(result[0].sku).toEqual('bagelthatwasnotremove.sku') to check that the remove method works properly, and does not just empty the whole basket, or get rid of the first or last element in the array, no matter whether it is or is not a match
   it('item removed', () => {
     const expected = []
