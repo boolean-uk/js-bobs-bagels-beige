@@ -141,19 +141,39 @@ class Basket {
 
     // processes the items which have deals on them
     for (const key in deals) {
-      const queueItem = queue.find((i) => {
-        return i.sku === deals[key].itemSku
-      })
-      if (!queueItem) continue
-      total += this.getSubtotalWithDeals(queueItem, deals[key])
+      const deal = deals[key]
+      if (deal.itemSku !== "COF") {
+        const queueItem = queue.find((i) => {
+          return i.sku === deals[key].itemSku
+        })
+        if (!queueItem) continue 
+        
+        const amountOfDeals = Math.floor(queueItem.quantity / deal.quantityRequired)
+        if (amountOfDeals > 0) {
+          total = total + (amountOfDeals * deal.dealPrice)
+          queueItem.quantity -= amountOfDeals * deal.quantityRequired
+        }
+      }
 
-      const index = queue.indexOf(queueItem)
-      queue.splice(index, 1)
+      if (deal.itemSku === "COF") {
+        const coffees = queue.find((i) => i.sku === "COF")
+        const plainBagels = queue.find((i) => i.sku === "BGLP")
+        if (coffees && plainBagels) {
+          const amountOfDeals = Math.min(coffees.quantity, plainBagels.quantity)
+          if (amountOfDeals > 0) {
+            total = total + (amountOfDeals * deal.dealPrice)
+            coffees.quantity -= amountOfDeals
+            plainBagels.quantity -= amountOfDeals
+          }
+        }
+      }
     }
 
     // processes items which are of a variant which has NO DEAL attached to them
     queue.forEach((item) => {
-      total += Number(item.price * item.quantity)
+      if (item.quantity) {
+        total += Number(item.price * item.quantity)
+      }
     })
     return Number(total.toFixed(2))
   }

@@ -54,13 +54,13 @@ describe('Deals', () => {
   it('calculate deal for coffee and plain donut', () => {
     const expected = 1.25
     basket.addBagel('BGLP')
-    // basket.addBagel('COF')
+    basket.addBagel('COF')
     const result = basket.getTotal()
     expect(result).toEqual(expected)
   })
 
   it('another large deal', () => {
-    const expected = 3.99 + 2.49 + 0.49 + 2.49 + 3 * 0.49 + 1.25 + 0.99
+    const expected = Number((3.99 + 2.49 + 0.49 + 2.49 + 3 * 0.49 + 1.25 + 0.99).toFixed(2))
     basket.addBagel('BGLP')
     basket.contents[0].setQuantity(13)
     basket.addBagel('BGLO')
