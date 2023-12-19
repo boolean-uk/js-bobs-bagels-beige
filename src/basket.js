@@ -9,12 +9,12 @@ class Basket {
     this.counts = {}
   }
 
-  addBagel(SKU, numOfBagels = 1) {
+  addBagel(sku, numOfBagels = 1) {
     for (let i = 0; i < numOfBagels; i++) {
       if (!this.basketIsFull()) {
         this.IDcounter++
         const id = this.IDcounter
-        const bagelItem = new Bagel(SKU, id)
+        const bagelItem = new Bagel(sku, id)
         this.contents.push(bagelItem)
       }
     }
@@ -38,29 +38,29 @@ class Basket {
     return false
   }
 
-  getPriceOfBagel(SKU) {
-    const output = new Bagel(SKU)
+  getPriceOfBagel(sku) {
+    const output = new Bagel(sku)
     return output.price
   }
 
   countBagelsInBasket() {
     this.counts = {}
     for (let i = 0; i < this.contents.length; i++) {
-      const SKU = this.contents[i].SKU
-      if (!Object.prototype.hasOwnProperty.call(this.counts, SKU)) {
-        this.counts[`${SKU}`] = 1
+      const sku = this.contents[i].sku
+      if (!Object.prototype.hasOwnProperty.call(this.counts, sku)) {
+        this.counts[`${sku}`] = 1
       } else {
-        this.counts[`${SKU}`]++
+        this.counts[`${sku}`]++
       }
     }
     return this.counts
   }
 
-  static getSubtotal(counts, SKU) {
-    const count = counts[SKU]
-    const dealQuantity = deals[SKU][0]
-    const dealPrice = deals[SKU][1]
-    const bagelPrice = Bagel.getPriceOfBagel(SKU)
+  static getSubtotal(counts, sku) {
+    const count = counts[sku]
+    const dealQuantity = deals[sku][0]
+    const dealPrice = deals[sku][1]
+    const bagelPrice = Bagel.getPriceOfBagel(sku)
     const dealSum = Math.floor(count / dealQuantity) * dealPrice
     const nonDealSum = (count % dealQuantity) * bagelPrice
     return Number((dealSum + nonDealSum).toFixed(2))
@@ -69,21 +69,21 @@ class Basket {
   getTotal() {
     const counts = this.counts
     let total = 0
-    for (const SKU in counts) {
-      const count = counts[`${SKU}`]
-      const dealQuantity = deals[SKU][0]
-      const dealPrice = deals[SKU][1]
-      const bagelPrice = Bagel.getPriceOfBagel(SKU)
-      if (Object.prototype.hasOwnProperty.call(deals, SKU)) {
+    for (const sku in counts) {
+      const count = counts[`${sku}`]
+      const dealQuantity = deals[sku][0]
+      const dealPrice = deals[sku][1]
+      const bagelPrice = Bagel.getPriceOfBagel(sku)
+      if (Object.prototype.hasOwnProperty.call(deals, sku)) {
         const dealSum = Math.floor(count / dealQuantity) * dealPrice
         const nonDealSum = (count % dealQuantity) * bagelPrice
         total += dealSum + nonDealSum
       }
       if (dealQuantity === 1) {
         // adhoc application of coffee deal saving
-        const BOGOFSKU = `${deals[SKU][2]}`
+        const BOGOFSKU = `${deals[sku][2]}`
         const numOfDiscounts = counts[BOGOFSKU] % deals[BOGOFSKU][0]
-        const saving = Bagel.getPriceOfBagel(BOGOFSKU) - deals[SKU][3]
+        const saving = Bagel.getPriceOfBagel(BOGOFSKU) - deals[sku][3]
         total -= numOfDiscounts * saving
       }
     }

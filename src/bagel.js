@@ -47,28 +47,28 @@ const inventory = [
   }
 ]
 
-function findBySKU(SKU) {
-  return inventory.find((bagel) => bagel.sku === SKU)
+function findBySku(sku) {
+  return inventory.find((bagel) => bagel.sku === sku)
 }
 
 class Bagel {
-  constructor(SKU, id) {
+  constructor(sku, id) {
     this.id = id
-    this.SKU = SKU
-    this.type = findBySKU(SKU).variant
-    this.price = findBySKU(SKU).price
+    this.sku = sku
+    this.type = findBySku(sku).variant
+    this.price = findBySku(sku).price
     this.offer =
-      SKU === 'COF'
+      sku === 'COF'
         ? 'buy a coffee and plain bagel for 1.25'
-        : `${deals[SKU][0]} ${this.type} Bagels for ${deals[SKU][1]}`
+        : `${deals[sku][0]} ${this.type} Bagels for ${deals[sku][1]}`
   }
 
-  static getPriceOfBagel(SKU) {
-    return findBySKU(SKU).price
+  static getPriceOfBagel(sku) {
+    return findBySku(sku).price
   }
 
-  static getTypeOfBagel(SKU) {
-    return findBySKU(SKU).variant
+  static getTypeOfBagel(sku) {
+    return findBySku(sku).variant
   }
 }
 
