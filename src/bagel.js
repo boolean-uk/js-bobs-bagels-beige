@@ -56,6 +56,10 @@ class Bagel {
       throw new Error('sku not found')
     }
 
+    if (quantity < 1) {
+      throw new Error('quantity must be at least 1')
+    }
+
     this.sku = bagel.sku
     this.variant = bagel.variant
     this.price = bagel.price
