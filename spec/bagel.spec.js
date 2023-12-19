@@ -41,5 +41,11 @@ describe('Bagel:', () => {
 
       expect(bagel).toThrowError('sku not found')
     })
+
+    // it('instance with quantity not at least 1', () => {
+    //   const bagel = () => new Bagel('BGLS', 0.5)
+
+    //   expect(bagel).toThrowError('quantity must be at least 1')
+    // })
   })
 })
