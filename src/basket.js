@@ -1,5 +1,6 @@
 const Bagel = require('../src/bagel.js')
 const deals = require('../src/deals.js')
+const getTotal = require('./getTotal.js')
 
 class Basket {
   constructor(number = 3) {
@@ -71,38 +72,12 @@ class Basket {
   // getTotal
 
   getTotal() {
-    let total = 0
-
-    this.contents.forEach((item) => {
-      const count = item.quantity
-      const dealQuantity = deals[item.SKU][0]
-      const dealPrice = deals[item.SKU][1]
-      const bagelPrice = Bagel.getPriceOfBagel(item.SKU)
-
-      if (deals.hasOwnProperty(item.SKU)) {
-        const dealSum = Math.floor(count / dealQuantity) * dealPrice
-        const nonDealSum = (count % dealQuantity) * bagelPrice
-
-        total += dealSum + nonDealSum
-      }
-
-      if (dealQuantity === 1) {
-        const BOGOFSKU = `${deals[item.SKU][2]}`
-        const ItemQuantity = this.contents.find(
-          (item) => item.SKU === BOGOFSKU
-        ).quantity
-        const numOfDiscounts = ItemQuantity % deals[BOGOFSKU][0]
-        const saving = Bagel.getPriceOfBagel(BOGOFSKU) - deals[item.SKU][3]
-
-        total -= numOfDiscounts * saving
-      }
-    })
-
-    return Number(total.toFixed(2))
+    return getTotal(this.contents)
   }
 
-  static getSubtotal(counts, SKU) {
-    const count = counts[SKU]
+  // SubTotal
+  static getSubtotal(bagelsList, SKU) {
+    const count = bagelsList.find((item) => item.SKU === SKU).quantity
     const dealQuantity = deals[SKU][0]
     const dealPrice = deals[SKU][1]
     const bagelPrice = Bagel.getPriceOfBagel(SKU)
