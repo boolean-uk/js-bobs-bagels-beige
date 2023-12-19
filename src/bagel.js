@@ -61,7 +61,7 @@ class Bagel {
     this.offer =
       sku === "COF"
         ? "buy a coffee and plain bagel for 1.25"
-        : `${deals[sku][0]} ${this.type} Bagels for ${deals[sku][1]}`;
+        : `${deals[sku.toLowerCase()].quantityRequired} ${this.type} Bagels for ${deals[sku.toLowerCase()].dealPrice}`;
   }
 
   static getPriceOfBagel(sku) {
