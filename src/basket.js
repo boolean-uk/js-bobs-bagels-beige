@@ -108,7 +108,7 @@ class Basket {
     const counts = this.counts
     let total = 0
     for (let sku in counts) {
-      const count = counts[`${sku}`]
+      const count = counts[sku]
       const dealQuantity = deals[sku][0]
       const dealPrice = deals[sku][1]
       const bagelPrice = Bagel.getPriceOfBagel(sku)
