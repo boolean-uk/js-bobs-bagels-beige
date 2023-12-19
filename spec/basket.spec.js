@@ -8,31 +8,12 @@ describe('Basket', () => {
     basket = new Basket()
   })
 
-  it('basket is empty', () => {
-    const expected = []
-    const result = basket.contents
-    expect(result).toEqual(expected)
-  })
-
-  it('get price of bagel before adding to basket', () => {
-    const testBagel = new Bagel('BGLO')
-    const expected = testBagel.price
-    const result = basket.getPriceOfBagel('BGLO')
-    expect(result).toEqual(expected)
-  })
+  // AddBagel
 
   it('add item to basket', () => {
     const expected = [new Bagel('BGLO', 1)]
 
     const result = basket.addBagel('BGLO')
-
-    expect(result).toEqual(expected)
-  })
-
-  it('remove item from basket', () => {
-    const expected = []
-    basket.addBagel('BGLO')
-    const result = basket.removeBagel(1)
 
     expect(result).toEqual(expected)
   })
@@ -51,13 +32,24 @@ describe('Basket', () => {
     expect(result).toEqual(expected)
   })
 
-  it('prevent adding bagels past basket capacity', () => {
-    // shouldn't be able to add 4 bagels to basket of capacity 3.
-    const expected = 3
-    basket.addBagel('BGLO', 4)
-    const result = basket.contents.length
+  // RemoveBagel
+
+  it('remove item from basket if item exist', () => {
+    const expected = []
+    basket.addBagel('BGLO')
+    const result = basket.removeBagel(1)
+
     expect(result).toEqual(expected)
   })
+
+  it("cannot remove an item that isn't in the basket", () => {
+    const expected = "Bagel isn't in basket"
+    const result = basket.removeBagel(1)
+
+    expect(result).toEqual(expected)
+  })
+
+  // ChangeCapacity
 
   it('create basket with larger capacity', () => {
     const expected = true
@@ -66,17 +58,41 @@ describe('Basket', () => {
     expect(result).toEqual(expected)
   })
 
-  it("cannot remove an item that isn't in the basket", () => {
-    const expected = "Bagel isn't in basket"
-    const result = basket.removeBagel(1)
-    expect(result).toEqual(expected)
+  it('change basket capacity', () => {
+    const expected = 20
+    const res = basket.changeCapacity(20)
+    expect(res).toBeTrue()
+    expect(basket.capacity).toEqual(expected)
   })
+
+  // GetTotal
 
   it('total sum of bagels in my basket ', () => {
     const expected = 3 * 0.49
     basket.addBagel('BGLO', 3)
     basket.countBagelsInBasket()
     const result = basket.getTotal()
+    expect(result).toEqual(expected)
+  })
+
+  it('basket is empty', () => {
+    const expected = []
+    const result = basket.contents
+    expect(result).toEqual(expected)
+  })
+
+  it('get price of bagel before adding to basket', () => {
+    const testBagel = new Bagel('BGLO')
+    const expected = testBagel.price
+    const result = basket.getPriceOfBagel('BGLO')
+    expect(result).toEqual(expected)
+  })
+
+  it('prevent adding bagels past basket capacity', () => {
+    // shouldn't be able to add 4 bagels to basket of capacity 3.
+    const expected = 3
+    basket.addBagel('BGLO', 4)
+    const result = basket.contents.length
     expect(result).toEqual(expected)
   })
 })
