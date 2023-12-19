@@ -2,8 +2,6 @@
 const Bagel = require('../src/bagel.js')
 const Basket = require('../src/basket.js')
 
-// Would use a few more describe blocks to add clarity to the tests, especially to their messages
-
 describe('Basket', () => {
   let basket
 
@@ -11,7 +9,6 @@ describe('Basket', () => {
     basket = new Basket()
   })
 
-  // is this necessary? Also 'Basket basket is empty' -> redundancies in the message
   it(', when first created, is empty', () => {
     const expected = []
     const result = basket.contents
@@ -30,17 +27,17 @@ describe('Basket', () => {
     const result = basket.addBagel('BGLO')
     expect(result).toEqual(expected)
   })
-  // is this overkill ? It looks like overkill (at least within the context of this exercise)
-  // the alternative being to have one test (sku not found), no matter why the sku passed is invalid
-  describe('invalid sku', () => {  
-      
+
+  describe('invalid sku', () => {
     it('- lower case', () => {
       const result = () => basket.addBagel('bglo')
       expect(result).toThrowError('invalid sku - should be capitalised')
     })
     it('- length should be 3 or 4 char', () => {
       const result = () => basket.addBagel('DBDHEFNGG')
-      expect(result).toThrowError('invalid sku - should contain 3 or 4 characters')
+      expect(result).toThrowError(
+        'invalid sku - should contain 3 or 4 characters'
+      )
     })
     it('- not a string', () => {
       const result = () => basket.addBagel(42)
@@ -66,7 +63,6 @@ describe('Basket', () => {
     expect(result.length).toEqual(1)
   })
 
-  // would add more that one item to the basket so and add expect(result[0].sku).toEqual('bagelthatwasnotremove.sku') to check that the remove method works properly, and does not just empty the whole basket, or get rid of the first or last element in the array, no matter whether it is or is not a match
   it('item removed', () => {
     const expected = []
     basket.addBagel('BGLO')
@@ -82,7 +78,6 @@ describe('Basket', () => {
     expect(result).toBeFalse()
   })
 
-  // not testing what happens if the basket is not full
   it('when full, user is informed of that', () => {
     basket.addBagel('BGLO')
     basket.addBagel('BGLO')
@@ -91,10 +86,9 @@ describe('Basket', () => {
     expect(result).toBeTrue()
   })
 
-  // should perhaps check which bagels made it to the basket - the contents should be unchanged, and not just of the same length.
   it('prevent adding bagels past basket capacity', () => {
     // shouldn't be able to add 4 bagels to basket of capacity 3.
-    const expected = "Basket is full!"
+    const expected = 'Basket is full!'
     basket.addBagel('BGLO')
     basket.addBagel('BGLO')
     basket.addBagel('BGLO')
@@ -102,8 +96,6 @@ describe('Basket', () => {
     expect(result).toThrowError(expected)
   })
 
-  // what if I attempt this with a smaller number? 0? A negative number? anything but an integer?
-  // also, why test that it is bigger than the capacity of the basket we made first instead of making sure it is the expected number?
   it('created with larger capacity', () => {
     const expected = true
     const largeBasket = new Basket(5)
@@ -111,17 +103,14 @@ describe('Basket', () => {
     expect(result).toEqual(expected)
   })
 
-  // redundancy in the message
   it("when item isn't found, user is informed of failed removal", () => {
     const result = () => basket.removeBagel(1)
     expect(result).toThrowError('bagel not found')
   })
 
-  // redundancy in the message
-  // does not check that getTotal() can handle doing the sum of different quantities of different types of bagels.
-  // what if the basket is empty?
   it('shows total sum of bagels', () => {
-    // const expected = 3 * 0.49
+    basket.addBagel('BGLO')
+    basket.addBagel('BGLO')
     basket.addBagel('BGLO')
     const result = basket.getTotal()
     expect(result).toEqual(1.47)

@@ -37,7 +37,7 @@ class Basket {
 
     const bagelItem = new Bagel(sku)
     this.contents.push(bagelItem)
-    
+
     return this.contents
   }
 
@@ -153,7 +153,6 @@ class Basket {
       }
       if (item.sku !== 'COF') {
         total += this.getSubtotalWithDeals(item)
-        console.log('ran')
       }
     })
 

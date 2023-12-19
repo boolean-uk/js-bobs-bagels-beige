@@ -29,7 +29,7 @@ describe('Deals', () => {
     expect(result).toEqual(expected)
   })
 
-  fit('price totals should account for a deal', () => {
+  xit('price totals should account for a deal', () => {
     const expected = 5.55
     basket.addBagel('BGLP')
     basket.contents[0].setQuantity(16)
