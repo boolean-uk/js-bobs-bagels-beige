@@ -38,11 +38,21 @@ Objects: Basket, Bagel
 Properties: Capacity, ID
 Verbs: Add, Remove, Know when (is full), Create, Know if (item isn't in basket)
 
-| Objects | Properties    | Messages       | Messages to messages | Output                                                 |
-| :------ | :------------ | :------------- | :------------------- | :----------------------------------------------------- |
-| Basket  | contents      | add            | isFull?              | contents + new item with next ID, increment ID counter |
-|         | capacity(num) | remove         | containsItemofThisID | contents - the removed item                            |
-|         | ID counter    | changeCapacity |                      | number                                                 |
-|         | price key     | sumPrices      |                      | function that adds all prices                          |
-| Bagel   | ID            | checkPrice     |                      |                                                        |
-|         | Price         |                |                      |                                                        |
+| Objects | Messages          | Input                                     | Scenario                             | Output                                                                                   |
+| ------- | ----------------- | ----------------------------------------- | ------------------------------------ | ---------------------------------------------------------------------------------------- |
+| Basket  | addBagel          | sku : string, quantity : number           | valid sku                            | add new Bagel instance to contents, return contents && next ID, ~~increment ID counter~~ |
+|         |                   |                                           | invalid sku                          | throw error "sku not found"                                                              |
+|         |                   |                                           | full basket                          | throw error "basket full"                                                                |
+|         |                   |                                           |                                      |                                                                                          |
+|         | removeBagel       | id : number, TODO: quantity : number      | valid sku                            | return contents minus the removed item                                                   |
+|         |                   | TODO: make bagels fungible only using sku | invalid sku                          | throw error "sku not found"                                                              |
+|         |                   |                                           | TODO: remove more sku than in basket | throw error "cannot remove {inputQuantity}, only {basketQuantity} in basket"             |
+|         |                   |                                           |                                      |                                                                                          |
+|         | setBasketCapacity | newCapacity : number                      | newCapacity >= 1                     | newCapacity.floor, update capacity, return capacity                                      |
+|         |                   |                                           | !(newCapacity >= 1)                  | throw error "newCapacity must be at least 1"                                             |
+|         |                   |                                           |                                      |                                                                                          |
+|         | getTotal          |                                           |                                      | return sum of contents.items.price                                                       |
+|         |                   |                                           |                                      |                                                                                          |
+| Bagel   | getPrice          | sku : string                              | valid sku                            | return bagel.price                                                                       |
+|         |                   |                                           | invalid sku                          | throw error "sku not found"                                                              |
+|         |                   |                                           |                                      |                                                                                          |
