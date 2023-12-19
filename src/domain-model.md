@@ -44,5 +44,5 @@ Verbs: Add, Remove, Know when (is full), Create, Know if (item isn't in basket)
 |         | price key     |                                         | item does not exist in basket | Message: 'Bagel isn't in basket'     |
 |         |               | changeCapacity(num @Int)                |                               | True                                 |
 |         |               | getTotal()                              |                               | total sum of basket                  |
-| Bagel   | ID            | getPriceOfBagel(SKU @Str)               |                               | price of bagel                       |
+| Bagel   | ID            |                                         |                               |                                      |
 |         | Price         |                                         |                               |                                      |
