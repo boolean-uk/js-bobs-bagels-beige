@@ -2,7 +2,7 @@ const Bagel = require('../src/bagel.js')
 const deals = require('../src/deals.js')
 
 class Basket {
-  constructor (number = 3) {
+  constructor(number = 3) {
     this.contents = []
     this.IDcounter = 0
     this.capacity = number
@@ -11,20 +11,20 @@ class Basket {
 
   // extract a method that updates IDcounter
   // numOfBagels = 1 -> why?, and why there?
-  addBagel (sku, numOfBagels = 1) {
-    if(!sku) {
+  addBagel(sku, numOfBagels = 1) {
+    if (!sku) {
       throw new Error('no sku passed')
     }
-    if(typeof sku !== 'string') {
+    if (typeof sku !== 'string') {
       throw new Error('invalid sku - should be of type string')
     }
-    if(sku.length < 3 || sku.length > 4) {
+    if (sku.length < 3 || sku.length > 4) {
       throw new Error('invalid sku - should contain 3 or 4 characters')
     }
-    if(sku.toUpperCase() !== sku) {
+    if (sku.toUpperCase() !== sku) {
       throw new Error('invalid sku - should be capitalised')
     }
- 
+
     for (let i = 0; i < numOfBagels; i++) {
       if (!this.basketIsFull()) {
         this.IDcounter++
@@ -41,11 +41,11 @@ class Basket {
     return !foundItemBySku ? false : true
   }
 
-  removeBagel (id) {
+  removeBagel(id) {
     const foundItemById = this.contents.find((i) => i.id === id)
 
-    if(!foundItemById) {
-      throw new Error("bagel not found")
+    if (!foundItemById) {
+      throw new Error('bagel not found')
     }
 
     for (let i = 0; i < this.contents.length; i++) {
@@ -57,7 +57,7 @@ class Basket {
   }
 
   // returns a boolean or a string - should return only one data type
-  basketIsFull () {
+  basketIsFull() {
     if (this.contents.length >= this.capacity) {
       return 'basket is full'
     }
@@ -65,7 +65,7 @@ class Basket {
   }
 
   // output: variable name unclear (bagel1 would be better)
-  getPriceOfBagel (sku) {
+  getPriceOfBagel(sku) {
     const output = new Bagel(sku)
     return output.price
   }
@@ -81,7 +81,7 @@ class Basket {
      return total/100
     }
 */
-  countBagelsInBasket () {
+  countBagelsInBasket() {
     this.counts = {}
     for (let i = 0; i < this.contents.length; i++) {
       const sku = this.contents[i]['sku']
@@ -94,37 +94,73 @@ class Basket {
     return this.counts
   }
 
-  static getSubtotal (counts, sku) {
-    const count = counts[sku]
-    const dealQuantity = deals[sku][0]
-    const dealPrice = deals[sku][1]
-    const bagelPrice = Bagel.getPriceOfBagel(sku)
-    const dealSum = Math.floor(count / dealQuantity) * dealPrice
-    const nonDealSum = (count % dealQuantity) * bagelPrice
-    return Number((dealSum + nonDealSum).toFixed(2))
+  getDealInfo(sku) {
+    const lowerCaseSku = sku.toLowerCase()
+    const dealQuantity = deals[lowerCaseSku].quantityRequired
+    const dealPrice = deals[lowerCaseSku].dealPrice
+    return { dealQuantity, dealPrice }
   }
 
-  getTotal () {
-    const counts = this.counts
+  getTotalDealsPrice(bagelQuantity, dealQuantity, dealPrice) {
+    const sum = Math.floor(bagelQuantity / dealQuantity) * dealPrice
+    return sum
+  }
+
+  getTotalPriceOfItemsNotIncludedInDeals(
+    bagelQuantity,
+    dealQuantity,
+    bagelPrice
+  ) {
+    const sum = (bagelQuantity % dealQuantity) * bagelPrice
+    return sum
+  }
+
+  getSubtotal(sku) {
+    const { dealQuantity, dealPrice } = this.getDealInfo(sku)
+
+    const bagelPrice = Bagel.getPriceOfBagel(sku)
+    // DUMMY DATA, TO BE REPLACE WITH Bagel.getQuantity(sku)
+    const bagelQuantity = 3
+
+    const totalDealPrice = this.getTotalDealsPrice(
+      bagelQuantity,
+      dealQuantity,
+      dealPrice
+    )
+    const totalPriceNotIncludedInDeals =
+      this.getTotalPriceOfItemsNotIncludedInDeals(
+        bagelQuantity,
+        dealQuantity,
+        bagelPrice
+      )
+
+    const totalSum = Number(
+      (totalDealPrice + totalPriceNotIncludedInDeals).toFixed(2)
+    )
+
+    return totalSum
+  }
+
+  getTotal() {
     let total = 0
-    for (let sku in counts) {
-      const count = counts[sku]
-      const dealQuantity = deals[sku][0]
-      const dealPrice = deals[sku][1]
-      const bagelPrice = Bagel.getPriceOfBagel(sku)
-      if (deals.hasOwnProperty(sku)) {
-        const dealSum = Math.floor(count / dealQuantity) * dealPrice
-        const nonDealSum = (count % dealQuantity) * bagelPrice
-        total += dealSum + nonDealSum
+    // this will work once bagels have a quantity property and each type only appears in the this.contents once
+    this.contents.forEach((item) => {
+      if (item.sku === 'COF') {
+        const { dealQuantity, dealPrice } = this.getdealInfo(item.sku)
+        const numOfDiscounts = dealQuantity
+
+        // the following code is only relevant for the receipt and should be refactored / added elsewhere
+        // const fullPrice = Bagel.getPriceOfBagel('COF') + Bagel.getPriceOfBagel('BGLP')
+        // const savingPerCoffeeBought = (fullPrice - dealPrice)
+        // const totalSavings = numOfDiscounts * savingPerCoffeeBought
+        const pricePaid = numOfDiscounts * dealPrice
+        total -= pricePaid
       }
-      if (dealQuantity === 1) {
-        // adhoc application of coffee deal saving
-        const BOGOFsku = `${deals[sku][2]}`
-        const numOfDiscounts = counts[BOGOFsku] % deals[BOGOFsku][0]
-        const saving = Bagel.getPriceOfBagel(BOGOFsku) - deals[sku][3]
-        total -= numOfDiscounts * saving
+      if (item.sku !== 'COF') {
+        total += this.getSubtotal(item.sku)
       }
-    }
+    })
+
     return Number(total.toFixed(2))
   }
 

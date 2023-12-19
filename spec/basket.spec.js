@@ -104,11 +104,11 @@ describe('Basket', () => {
   // does not check that getTotal() can handle doing the sum of different quantities of different types of bagels.
   // what if the basket is empty?
   it('shows total sum of bagels', () => {
-    const expected = 3 * 0.49
+    // const expected = 3 * 0.49
     basket.addBagel('BGLO', 3)
-    basket.countBagelsInBasket()
+    // basket.countBagelsInBasket()
     const result = basket.getTotal()
-    expect(result).toEqual(expected)
+    expect(result).toEqual(1.47)
   })
 
   it('contains', () => {
