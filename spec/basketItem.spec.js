@@ -9,4 +9,10 @@ describe("BasketItem", () => {
     expect(myBasketBagel.quantity).toEqual(1)
     expect(myBasketBagel.price).toEqual(myBagel.price)
   })
+
+  it("returns proper subtotal", () => {
+    const myBagel = new Bagel("BGLO", 1)
+    const myBasketBagel = new BasketItem("BGLO")
+    expect(myBasketBagel.getSubtotal()).toEqual(Number(myBagel.price))
+  })
 })

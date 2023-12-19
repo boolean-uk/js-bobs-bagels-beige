@@ -4,7 +4,7 @@ class BasketItem {
   constructor (sku) {
     const bagelTemplate = findBySku(sku)
     this.sku = bagelTemplate.sku
-    this.price = bagelTemplate.price
+    this.price = Number(bagelTemplate.price)
     this.quantity = 1
   }
 
