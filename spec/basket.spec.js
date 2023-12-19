@@ -75,6 +75,13 @@ describe('Basket', () => {
     expect(result).toEqual(expected)
   })
 
+  it('when full, user is informed of that', () => {
+    basket.addBagel('BGLO')
+    basket.addBagel('BGLO')
+    const result = basket.isFull()
+    expect(result).toBeFalse()
+  })
+
   // not testing what happens if the basket is not full
   it('when full, user is informed of that', () => {
     basket.addBagel('BGLO')
