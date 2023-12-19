@@ -1,20 +1,16 @@
-import Bagel from "./bagel"
+const { findBySku } = require("./bagel.js")
 
 class BasketItem {
   constructor (sku) {
-    this = new Bagel(sku)
+    const bagelTemplate = findBySku(sku)
+    this.sku = bagelTemplate.sku
+    this.price = bagelTemplate.price
     this.quantity = 1
   }
 
-  addQuantity (increase) {
-    if (increase < 0 && -this.quantity < increase) {
-      throw new Error(`Can't remove ${increase} when only ${this.quantity} are present`)
-    } else if (increase < 0 && -this.quantity === increase) {
-      throw new Error('Seems like you want to remove the item from the basket.')
-    }
-    this.quantity += increase
-    return this
-  } 
+  getSubtotal () {
+    return this.quantity * this.price
+  }
 }
 
-export default BasketItem
+module.exports = BasketItem
