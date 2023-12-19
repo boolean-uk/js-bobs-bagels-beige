@@ -45,4 +45,4 @@ Verbs: Add, Remove, Know when (is full), Create, Know if (item isn't in basket)
 |         |               | changeCapacity(num @Int)                |                               | True                                 |
 |         |               | getTotal()                              |                               | total sum of basket                  |
 | Bagel   | ID            | getPriceOfBagel(SKU @Str)               |                               | price of bagel                       |
-|         | Price         | getTypeOfBagel(SKU @Str)                |                               | type of bagel                        |
+|         | Price         |                                         |                               |                                      |
