@@ -76,13 +76,12 @@ describe('Basket', () => {
   })
 
   // not testing what happens if the basket is not full
-  fit('when full, user is informed of that', () => {
-    const expected = 'basket is full'
+  it('when full, user is informed of that', () => {
     basket.addBagel('BGLO')
     basket.addBagel('BGLO')
     basket.addBagel('BGLO')
-    const result = basket.basketIsFull()
-    expect(result).toEqual(expected)
+    const result = basket.isFull()
+    expect(result).toBeTrue()
   })
 
   // should perhaps check which bagels made it to the basket - the contents should be unchanged, and not just of the same length.

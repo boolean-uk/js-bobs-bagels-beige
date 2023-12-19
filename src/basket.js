@@ -25,7 +25,7 @@ class Basket {
       throw new Error('invalid sku - should be capitalised')
     }
 
-    if (this.basketIsFull()) {
+    if (this.isFull()) {
       throw new Error("Basket is full!")
     }
 
