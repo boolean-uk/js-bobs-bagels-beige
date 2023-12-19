@@ -61,6 +61,15 @@ class Bagel {
     this.fillings = bagel.fillings
     this.quantity = quantity
   }
+
+  get details() {
+    return {
+      sku: this.sku,
+      price: this.price,
+      name: this.name,
+      variant: this.variant,
+      quantity: this.quantity
+    }
   }
 
   static getPriceOfBagel(sku) {
