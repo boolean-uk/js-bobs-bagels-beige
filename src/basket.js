@@ -4,35 +4,12 @@ const deals = require('../src/deals.js')
 class Basket {
   constructor(number = 3) {
     this.contents = []
-    this.IDcounter = 0
     this.capacity = number
-    this.counts = {}
   }
 
-  addBagel(SKU, numOfBagels = 1) {
-    for (let i = 0; i < numOfBagels; i++) {
-      if (!this.basketIsFull()) {
-        this.IDcounter++
-        const id = this.IDcounter
-        const bagelItem = new Bagel(SKU, id)
-        this.contents.push(bagelItem)
-      }
-    }
-    return this.contents
-  }
-
-  removeBagel(id) {
-    for (let i = 0; i < this.contents.length; i++) {
-      if (this.contents[i].id === id) {
-        this.contents.splice([i], 1)
-        return this.contents
-      }
-    }
-    return "Bagel isn't in basket"
-  }
-
+  // General
   basketIsFull() {
-    if (this.contents.length >= this.capacity) {
+    if (this.getQuantityOfBasket() >= this.capacity) {
       return 'basket is full'
     }
     return false
@@ -43,28 +20,81 @@ class Basket {
     return output.price
   }
 
-  /*
-    getTotal() {
-        let total = 0
-        this.checkDeals()
-        console.log(this.countBagelsinBasket())
-      for (let i = 0; i < this.contents.length; i++) {
-         total += this.contents[i].price * 100
-      }
-     return total/100
+  getQuantityOfBasket() {
+    return this.contents.map((item) => item.quantity).reduce((a, b) => a + b, 0)
+  }
+
+  // AddBagel
+  addBagel(SKU, numOfBagels = 1) {
+    const findBagel = this.contents.find((item) => item.SKU === SKU) || null
+
+    while (numOfBagels > this.capacity) {
+      numOfBagels--
     }
-*/
-  countBagelsInBasket() {
-    this.counts = {}
-    for (let i = 0; i < this.contents.length; i++) {
-      const SKU = this.contents[i].SKU
-      if (!this.counts.hasOwnProperty(SKU)) {
-        this.counts[`${SKU}`] = 1
-      } else {
-        this.counts[`${SKU}`]++
+
+    if (!this.basketIsFull()) {
+      if (findBagel) {
+        findBagel.quantity += numOfBagels
+
+        return this.contents
       }
+
+      this.contents.push(new Bagel(SKU, this.contents.length + 1, numOfBagels))
     }
-    return this.counts
+
+    return this.contents
+  }
+
+  // RemoveBagel
+  removeBagel(id) {
+    const findItem = this.contents.find((item) => item.id === id) || null
+
+    if (findItem) {
+      this.contents = this.contents.filter((item) => item.id !== id)
+
+      return this.contents
+    }
+
+    return "Bagel isn't in basket"
+  }
+
+  // ChangeCapacity
+  changeCapacity(cap) {
+    this.capacity = cap
+    return this.capacity
+  }
+
+  // getTotal
+
+  getTotal() {
+    let total = 0
+
+    this.contents.forEach((item) => {
+      const count = item.quantity
+      const dealQuantity = deals[item.SKU][0]
+      const dealPrice = deals[item.SKU][1]
+      const bagelPrice = Bagel.getPriceOfBagel(item.SKU)
+
+      if (deals.hasOwnProperty(item.SKU)) {
+        const dealSum = Math.floor(count / dealQuantity) * dealPrice
+        const nonDealSum = (count % dealQuantity) * bagelPrice
+
+        total += dealSum + nonDealSum
+      }
+
+      if (dealQuantity === 1) {
+        const BOGOFSKU = `${deals[item.SKU][2]}`
+        const ItemQuantity = this.contents.find(
+          (item) => item.SKU === BOGOFSKU
+        ).quantity
+        const numOfDiscounts = ItemQuantity % deals[BOGOFSKU][0]
+        const saving = Bagel.getPriceOfBagel(BOGOFSKU) - deals[item.SKU][3]
+
+        total -= numOfDiscounts * saving
+      }
+    })
+
+    return Number(total.toFixed(2))
   }
 
   static getSubtotal(counts, SKU) {
@@ -76,37 +106,6 @@ class Basket {
     const nonDealSum = (count % dealQuantity) * bagelPrice
     return Number((dealSum + nonDealSum).toFixed(2))
   }
-
-  getTotal() {
-    const counts = this.counts
-    let total = 0
-    for (const SKU in counts) {
-      const count = counts[`${SKU}`]
-      const dealQuantity = deals[SKU][0]
-      const dealPrice = deals[SKU][1]
-      const bagelPrice = Bagel.getPriceOfBagel(SKU)
-      if (deals.hasOwnProperty(SKU)) {
-        const dealSum = Math.floor(count / dealQuantity) * dealPrice
-        const nonDealSum = (count % dealQuantity) * bagelPrice
-        total += dealSum + nonDealSum
-      }
-      if (dealQuantity === 1) {
-        // adhoc application of coffee deal saving
-        const BOGOFSKU = `${deals[SKU][2]}`
-        const numOfDiscounts = counts[BOGOFSKU] % deals[BOGOFSKU][0]
-        const saving = Bagel.getPriceOfBagel(BOGOFSKU) - deals[SKU][3]
-        total -= numOfDiscounts * saving
-      }
-    }
-    return Number(total.toFixed(2))
-  }
-
-  /* this.contents.filter()
-        for(let i = 0; i < this.contents.length; i++){
-            for (let j = 0; j < )
-        }
-    }
-    */
 }
 
 module.exports = Basket

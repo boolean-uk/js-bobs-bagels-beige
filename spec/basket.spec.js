@@ -19,7 +19,7 @@ describe('Basket', () => {
   })
 
   it('add a second bagel to basket', () => {
-    const expected = [new Bagel('BGLO', 1), new Bagel('BGLO', 2)]
+    const expected = [new Bagel('BGLO', 1, 2)]
     basket.addBagel('BGLO')
     const result = basket.addBagel('BGLO')
     expect(result).toEqual(expected)
@@ -61,8 +61,16 @@ describe('Basket', () => {
   it('change basket capacity', () => {
     const expected = 20
     const res = basket.changeCapacity(20)
-    expect(res).toBeTrue()
+    expect(res).toEqual(expected)
     expect(basket.capacity).toEqual(expected)
+  })
+
+  it('prevent adding bagels past basket capacity', () => {
+    // shouldn't be able to add 4 bagels to basket of capacity 3.
+    const expected = 3
+    basket.addBagel('BGLO', 4)
+    const result = basket.getQuantityOfBasket()
+    expect(result).toEqual(expected)
   })
 
   // GetTotal
@@ -70,10 +78,11 @@ describe('Basket', () => {
   it('total sum of bagels in my basket ', () => {
     const expected = 3 * 0.49
     basket.addBagel('BGLO', 3)
-    basket.countBagelsInBasket()
     const result = basket.getTotal()
     expect(result).toEqual(expected)
   })
+
+  // General
 
   it('basket is empty', () => {
     const expected = []
@@ -85,14 +94,6 @@ describe('Basket', () => {
     const testBagel = new Bagel('BGLO')
     const expected = testBagel.price
     const result = basket.getPriceOfBagel('BGLO')
-    expect(result).toEqual(expected)
-  })
-
-  it('prevent adding bagels past basket capacity', () => {
-    // shouldn't be able to add 4 bagels to basket of capacity 3.
-    const expected = 3
-    basket.addBagel('BGLO', 4)
-    const result = basket.contents.length
     expect(result).toEqual(expected)
   })
 })

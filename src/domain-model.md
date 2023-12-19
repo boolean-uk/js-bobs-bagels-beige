@@ -40,8 +40,8 @@ Verbs: Add, Remove, Know when (is full), Create, Know if (item isn't in basket)
 | :------ | :------------ | :-------------------------------------- | :---------------------------- | :----------------------------------- |
 | Basket  | contents      | addBagel(SKU @Str, numberOfBagels @Int) | basket is not full            | List of basket with added new bagel  |
 |         | capacity(num) |                                         | basket if full                | Message: 'Basket is full'            |
-|         | ID counter    | removeBagel(id @Int)                    | item exists in basket         | List of basket without removed bagel |
-|         | price key     |                                         | item does not exist in basket | Message: 'Bagel isn't in basket'     |
+|         | price key     | removeBagel(id @Int)                    | item exists in basket         | List of basket without removed bagel |
+|         |               |                                         | item does not exist in basket | Message: 'Bagel isn't in basket'     |
 |         |               | changeCapacity(num @Int)                |                               | True                                 |
 |         |               | getTotal()                              |                               | total sum of basket                  |
 | Bagel   | ID            |                                         |                               |                                      |

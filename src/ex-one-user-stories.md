@@ -14,8 +14,8 @@ I'd like to get the special deals whenever they apply.
 | :------ | :------------ | :------------------------ | :-------------------------------------- | :--------------------------------------- |
 | Basket  | contents      | getTotal()                | There is offer's products in the basket | total sum of basket including offers     |
 |         | capacity(num) |                           |                                         |                                          |
-|         | ID counter    |                           |                                         |                                          |
 |         | price key     |                           |                                         |                                          |
+|         |               |                           |                                         |                                          |
 | Bagel   | ID            | getPriceOfBagel(SKU @Str) |                                         | price of specific bagel                  |
 |         | Price         | getTypeOfBagel(SKU @Str)  |                                         | type of bagel                            |
 |         |               | getBagelOffer(SKU @Str)   | The Bagel has offer                     | string line with desctiption of offer    |

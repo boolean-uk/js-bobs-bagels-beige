@@ -52,7 +52,7 @@ function findBySKU(SKU) {
 }
 
 class Bagel {
-  constructor(SKU, id) {
+  constructor(SKU, id, quantity = 1) {
     this.id = id
     this.SKU = SKU
     this.type = findBySKU(SKU).variant
@@ -61,6 +61,7 @@ class Bagel {
       SKU === 'COF'
         ? 'buy a coffee and plain bagel for 1.25'
         : `${deals[SKU][0]} ${this.type} Bagels for ${deals[SKU][1]}`
+    this.quantity = quantity
   }
 
   static getPriceOfBagel(SKU) {
