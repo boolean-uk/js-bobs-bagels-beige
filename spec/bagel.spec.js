@@ -2,7 +2,7 @@ const Bagel = require('../src/bagel.js')
 
 describe('Bagel:', () => {
   describe('New -', () => {
-    it('new instance with valid sku', () => {
+    it('new instance with valid sku and custom quantity', () => {
       const bagel = new Bagel('BGLS', 3)
 
       const expected = {
