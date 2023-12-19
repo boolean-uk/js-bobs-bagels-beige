@@ -1,87 +1,99 @@
-const Bagel = require("../src/bagel.js");
-const Basket = require("../src/basket.js");
+const Bagel = require('../src/bagel.js')
+const Basket = require('../src/basket.js')
 
-describe("Basket", () => {
-    let basket
+describe('Basket', () => {
+  let basket
 
-    beforeEach(() => {
-        basket = new Basket();
-    });
+  beforeEach(() => {
+    basket = new Basket()
+  })
 
-    it("basket is empty", () => {
-        const expected = []
-        const result = basket.contents
-        expect(result).toEqual(expected);
-    });
+  // AddBagel
 
-    it("get price of bagel before adding to basket", () => {
-        const testBagel = new Bagel("BGLO");
-        const expected = testBagel.price;
-        const result = basket.getPriceOfBagel("BGLO");
-        expect(result).toEqual(expected);
-      });
+  it('add item to basket', () => {
+    const expected = [new Bagel('BGLO', 1)]
 
-    it("add item to basket", () => {
+    const result = basket.addBagel('BGLO')
 
-        const expected = [new Bagel("BGLO", 1)]
+    expect(result).toEqual(expected)
+  })
 
-        const result = basket.addBagel("BGLO")
+  it('add a second bagel to basket', () => {
+    const expected = [new Bagel('BGLO', 1, 2)]
+    basket.addBagel('BGLO')
+    const result = basket.addBagel('BGLO')
+    expect(result).toEqual(expected)
+  })
 
-        expect(result).toEqual(expected);
-    });
+  it('when Basket is full', () => {
+    const expected = 'basket is full'
+    basket.addBagel('BGLO', 4)
+    const result = basket.basketIsFull()
+    expect(result).toEqual(expected)
+  })
 
-    it("remove item from basket", () => {
+  // RemoveBagel
 
-        const expected = []
-        basket.addBagel("BGLO")
-        const result = basket.removeBagel(1)
+  it('remove item from basket if item exist', () => {
+    const expected = []
+    basket.addBagel('BGLO')
+    const result = basket.removeBagel(1)
 
-        expect(result).toEqual(expected);
-    });
+    expect(result).toEqual(expected)
+  })
 
-    it("add a second bagel to basket", () => {
+  it("cannot remove an item that isn't in the basket", () => {
+    const expected = "Bagel isn't in basket"
+    const result = basket.removeBagel(1)
 
-        const expected = [new Bagel("BGLO", 1),
-        new Bagel("BGLO", 2)]
-        basket.addBagel("BGLO")
-        const result = basket.addBagel("BGLO")
-        expect(result).toEqual(expected);
-    });
+    expect(result).toEqual(expected)
+  })
 
-    it("when Basket is full", () => {
+  // ChangeCapacity
 
-        const expected = 'basket is full'
-        basket.addBagel("BGLO", 4)
-        const result = basket.basketIsFull()
-        expect(result).toEqual(expected);
-    });
-    
-    it("prevent adding bagels past basket capacity", () => {
-        // shouldn't be able to add 4 bagels to basket of capacity 3.
-        const expected = 3
-        basket.addBagel("BGLO", 4)
-        const result = basket.contents.length
-        expect(result).toEqual(expected);
-    });
+  it('create basket with larger capacity', () => {
+    const expected = true
+    const largeBasket = new Basket(5)
+    const result = largeBasket.capacity > basket.capacity
+    expect(result).toEqual(expected)
+  })
 
-    it("create basket with larger capacity", () => {
-        const expected = true
-        const largeBasket = new Basket(5)
-        const result = largeBasket.capacity > basket.capacity
-        expect(result).toEqual(expected);
-    });
+  it('change basket capacity', () => {
+    const expected = 20
+    const res = basket.changeCapacity(20)
+    expect(res).toEqual(expected)
+    expect(basket.capacity).toEqual(expected)
+  })
 
-    it("cannot remove an item that isn't in the basket", () => {
-        const expected = "Bagel isn't in basket"
-        const result = basket.removeBagel(1)
-        expect(result).toEqual(expected);
-    });
+  it('prevent adding bagels past basket capacity', () => {
+    // shouldn't be able to add 4 bagels to basket of capacity 3.
+    const expected = 3
+    basket.addBagel('BGLO', 4)
+    const result = basket.getQuantityOfBasket()
+    expect(result).toEqual(expected)
+  })
 
-    it("total sum of bagels in my basket ", () => {
-        const expected = 3 * 0.49
-        basket.addBagel("BGLO", 3)
-        basket.countBagelsInBasket()
-        const result = basket.getTotal();
-        expect(result).toEqual(expected);
-      });
-});
+  // GetTotal
+
+  it('total sum of bagels in my basket ', () => {
+    const expected = 3 * 0.49
+    basket.addBagel('BGLO', 3)
+    const result = basket.getTotal()
+    expect(result).toEqual(expected)
+  })
+
+  // General
+
+  it('basket is empty', () => {
+    const expected = []
+    const result = basket.contents
+    expect(result).toEqual(expected)
+  })
+
+  it('get price of bagel before adding to basket', () => {
+    const testBagel = new Bagel('BGLO')
+    const expected = testBagel.price
+    const result = basket.getPriceOfBagel('BGLO')
+    expect(result).toEqual(expected)
+  })
+})
