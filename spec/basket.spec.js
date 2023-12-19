@@ -94,10 +94,12 @@ describe('Basket', () => {
   // should perhaps check which bagels made it to the basket - the contents should be unchanged, and not just of the same length.
   it('prevent adding bagels past basket capacity', () => {
     // shouldn't be able to add 4 bagels to basket of capacity 3.
-    const expected = 3
-    basket.addBagel('BGLO', 4)
-    const result = basket.contents.length
-    expect(result).toEqual(expected)
+    const expected = "Basket is full!"
+    basket.addBagel('BGLO')
+    basket.addBagel('BGLO')
+    basket.addBagel('BGLO')
+    const result = () => basket.addBagel('BGLO')
+    expect(result).toThrowError(expected)
   })
 
   // what if I attempt this with a smaller number? 0? A negative number? anything but an integer?
