@@ -122,22 +122,21 @@ describe('Basket', () => {
   // what if the basket is empty?
   it('shows total sum of bagels', () => {
     // const expected = 3 * 0.49
-    basket.addBagel('BGLO', 3)
-    // basket.countBagelsInBasket()
+    basket.addBagel('BGLO')
     const result = basket.getTotal()
     expect(result).toEqual(1.47)
   })
 
   it('contains', () => {
-    const item1 = basket.addBagel('BGLO', 2)
-    const item2 = basket.addBagel('BGLE', 3)
+    basket.addBagel('BGLO')
+    basket.addBagel('BGLE')
     const result = basket.contains('BGLO')
     expect(result).toBeTrue()
   })
 
   it('does not contain', () => {
-    const item1 = basket.addBagel('BGLO', 2)
-    const item2 = basket.addBagel('BGLE', 3)
+    basket.addBagel('BGLO')
+    basket.addBagel('BGLE')
     const result = basket.contains('BGLP')
     expect(result).toBeFalse()
   })
