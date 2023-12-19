@@ -1,82 +1,91 @@
-const deals = require("../src/deals.js");
-
 const inventory = [
-    {
-      "sku": "BGLO",
-      "price": "0.49",
-      "name": "Bagel",
-      "variant": "Onion"
-    },
-    {
-      "sku": "BGLP",
-      "price": "0.39",
-      "name": "Bagel",
-      "variant": "Plain"
-    },
-    {
-      "sku": "BGLE",
-      "price": "0.49",
-      "name": "Bagel",
-      "variant": "Everything"
-    },
-    {
-      "sku": "BGLS",
-      "price": "0.49",
-      "name": "Bagel",
-      "variant": "Sesame"
-    },
-    {
-      "sku": "COF",
-      "price": "0.99",
-      "name": "Bagel",
-      "variant": ""
-    },
-    {
-      "sku": "BGSE",
-      "price": "2.99",
-      "name": "Bagel Sandwich",
-      "variant": "Everything",
-      "fillings": [
-        "Bacon",
-        "Egg",
-        "Cheese"
-      ]
-    },
-    {
-      "sku": "BGSS",
-      "price": "4.99",
-      "name": "Bagel Sandwich",
-      "variant": "Sesame",
-      "fillings": [
-        "Cream Cheese",
-        "Smoked Salmon"
-      ]
-    },
-  ]
-
-function findBySKU(SKU) {
-    return inventory.find(bagel => bagel['sku'] === SKU)
+  {
+    sku: 'BGLO',
+    price: '0.49',
+    name: 'Bagel',
+    variant: 'Onion'
+  },
+  {
+    sku: 'BGLP',
+    price: '0.39',
+    name: 'Bagel',
+    variant: 'Plain'
+  },
+  {
+    sku: 'BGLE',
+    price: '0.49',
+    name: 'Bagel',
+    variant: 'Everything'
+  },
+  {
+    sku: 'BGLS',
+    price: '0.49',
+    name: 'Bagel',
+    variant: 'Sesame'
+  },
+  {
+    sku: 'COF',
+    price: '0.99',
+    name: 'Coffee',
+    variant: ''
+  },
+  {
+    sku: 'BGSE',
+    price: '2.99',
+    name: 'Bagel Sandwich',
+    variant: 'Everything',
+    fillings: ['Bacon', 'Egg', 'Cheese']
+  },
+  {
+    sku: 'BGSS',
+    price: '4.99',
+    name: 'Bagel Sandwich',
+    variant: 'Sesame',
+    fillings: ['Cream Cheese', 'Smoked Salmon']
   }
+]
 
+function findBySku(sku) {
+  return inventory.find((bagel) => bagel.sku === sku)
+}
 class Bagel {
-    constructor(SKU, id){
-        this.id = id
-        this.SKU = SKU
-        this.type = findBySKU(SKU).variant
-        this.price = findBySKU(SKU).price
-        this.offer = SKU === "COF"
-        ? "buy a coffee and plain bagel for 1.25"
-        : `${deals[SKU][0]} ${this.type} Bagels for ${deals[SKU][1]}`
+  constructor(sku, quantity = 1) {
+    const bagel = findBySku(sku)
+
+    if (typeof bagel !== 'object') {
+      throw new Error('sku not found')
     }
 
-  static getPriceOfBagel(SKU) {
-    return findBySKU(SKU).price
+    if (quantity < 1) {
+      throw new Error('quantity must be at least 1')
+    }
+
+    this.sku = bagel.sku
+    this.variant = bagel.variant
+    this.price = bagel.price
+    this.name = bagel.name
+    this.fillings = bagel.fillings
+    this.quantity = quantity
   }
 
-  static getTypeOfBagel(SKU) {
-    return findBySKU(SKU).variant
+  get details() {
+    return {
+      sku: this.sku,
+      price: this.price,
+      name: this.name,
+      variant: this.variant,
+      quantity: this.quantity,
+      fillings: this.fillings || []
+    }
   }
 
+  static getPriceOfBagel(sku) {
+    return findBySku(sku).price
+  }
+
+  static getTypeOfBagel(sku) {
+    return findBySku(sku).variant
+  }
 }
 
 module.exports = Bagel

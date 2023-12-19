@@ -35,21 +35,14 @@
       "price": "2.99",
       "name": "Bagel Sandwich",
       "variant": "Everything",
-      "fillings": [
-        "Bacon",
-        "Egg",
-        "Cheese"
-      ]
+      "fillings": ["Bacon", "Egg", "Cheese"]
     },
     {
       "sku": "BGSS",
       "price": "4.99",
       "name": "Bagel Sandwich",
       "variant": "Sesame",
-      "fillings": [
-        "Cream Cheese",
-        "Smoked Salmon"
-      ]
-    },
+      "fillings": ["Cream Cheese", "Smoked Salmon"]
+    }
   ]
 }
