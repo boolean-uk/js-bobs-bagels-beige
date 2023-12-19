@@ -1,50 +1,71 @@
-const Bagel = require("../src/bagel.js");
-const Basket = require("../src/basket.js");
+const Bagel = require('../src/bagel.js')
+const Basket = require('../src/basket.js')
 
 class Receipt {
-    constructor(obj = {}){
+  constructor(obj = {}) {
     this.purchases = obj
-    this.date = new Date
+    this.date = new Date()
     this.total = 0
-    }
-    getReceipt(){
-        return `
+  }
+
+  // will only work is this.total is added to Basket()
+  getReceipt() {
+    return `
     ~~~ Bob's Bagels ~~~    
 
        ${this.date.toDateString()}
 ----------------------------
 ${this.getPurchaseList()}
-Total                 £${Number(this.total.toFixed(2))}
+Total                 £${Number(Basket.total.toFixed(2))}
         Thank you
       for your order!         `
-    }
-    getPurchaseList(){
-        this.total = 0
-        let purchaseLines = ""
-        for (let key in this.purchases){
-            let receiptLine = ""
-            receiptLine += Bagel.getTypeOfBagel(key)
-            ? Bagel.getTypeOfBagel(key)
-            : 'Coffee'
-            for (let i = 0;i<19;i++){
-                if (receiptLine.length < 19){
-                    receiptLine += " "
-                }
-            }
-            receiptLine += this.purchases[`${key}`]
-            for (let i=0;i<4;i++){
-                if (receiptLine.length < 23){
-                    receiptLine += " "
-                }
-            }
-            receiptLine += "£"
-            const subtotal = Basket.getSubtotal(this.purchases, key)
-            receiptLine += subtotal
-            this.total += subtotal
-            purchaseLines += `${receiptLine}\n`
-        }
-        return purchaseLines
-    }
+  }
 
+  addItemName(receiptLine, sku) {
+    receiptLine += Bagel.getTypeOfBagel(sku)
+      ? Bagel.getTypeOfBagel(sku)
+      : 'Coffee'
+  }
+
+  setLineLengthTo19(receiptLine) {
+    for (let i = 0; i < 19; i++) {
+      if (receiptLine.length < 19) {
+        receiptLine += ' '
+      }
+    }
+  }
+
+  setLineLengthTo23(receiptLine) {
+    for (let i = 0; i < 4; i++) {
+      if (receiptLine.length < 23) {
+        receiptLine += ' '
+      }
+    }
+  }
+
+  addItemQuantity(receiptLine, sku) {
+    receiptLine += this.purchases[sku]
+  }
+
+  addItemTotalPrice(receiptLine, sku) {
+    receiptLine += '£'
+    const subtotal = Basket.getSubtotal(this.purchases, sku)
+    receiptLine += subtotal
+  }
+
+  getPurchaseList() {
+    this.total = 0
+    let purchaseLines = ''
+    this.purchases.forEach((item) => {
+      const receiptLine = ''
+      this.addItemName(receiptLine, item.sku)
+      this.setLineLengthTo19(receiptLine)
+      this.setLineLengthTo23(receiptLine, item.sku)
+      this.addItemQuantity(receiptLine, item.sku)
+      this.addItemTotalPrice(receiptLine, item.sku)
+      purchaseLines += `${receiptLine}\n`
+    })
+    return purchaseLines
+  }
 }
 module.exports = Receipt
