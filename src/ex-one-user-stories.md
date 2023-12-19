@@ -10,11 +10,12 @@ As a Bob's Bagels customer,
 So that I can feel like a valued customer,
 I'd like to get the special deals whenever they apply.
 
-| Objects | Properties | Messages | Messages to messages | Output |
-| :------ | :--------- | :------- | | :----- |
-| Basket | contents | add | isFull? | contents + new item with next ID, increment ID counter |
-| | capacity(num) | remove | containsItemofThisID | contents - the removed item |
-| | ID counter | changeCapacity | | number |
-| | price key | sumPrices | | function that adds all prices |
-| Bagel | ID | checkPrice | | |
-| | Price | | | |
+| Objects | Properties    | Messages                 | Scenario                                | Output                                   |
+| :------ | :------------ | :----------------------- | :-------------------------------------- | :--------------------------------------- |
+| Basket  | contents      | getTotal()               | There is offer's products in the basket | total sum of basket including offers     |
+|         | capacity(num) |                          |                                         |                                          |
+|         | ID counter    |                          |                                         |                                          |
+|         | price key     |                          |                                         |                                          |
+| Bagel   | ID            | getTypeOfBagel(SKU @Str) |                                         | type of bagel                            |
+|         | Price         | getBagelOffer(SKU @Str)  | The Bagel has offer                     | string line with desctiption of offer    |
+|         |               |                          | The Bagel doesn't have offer            | Message: 'This bagel doesn't have offer' |
