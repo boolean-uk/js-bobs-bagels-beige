@@ -28,35 +28,34 @@ describe('Basket', () => {
   it('item added', () => {
     const expected = [new Bagel('BGLO')]
     const result = basket.addBagel('BGLO')
-    console.log(result)
     expect(result).toEqual(expected)
   })
   // is this overkill ? It looks like overkill (at least within the context of this exercise)
   // the alternative being to have one test (sku not found), no matter why the sku passed is invalid
   describe('invalid sku', () => {  
-    
-  it('- lower case', () => {
-    const result = () => basket.addBagel('bglo')
-    expect(result).toThrowError('invalid sku - should be capitalised')
+      
+    it('- lower case', () => {
+      const result = () => basket.addBagel('bglo')
+      expect(result).toThrowError('invalid sku - should be capitalised')
+    })
+    it('- length should be 3 or 4 char', () => {
+      const result = () => basket.addBagel('DBDHEFNGG')
+      expect(result).toThrowError('invalid sku - should contain 3 or 4 characters')
+    })
+    it('- not a string', () => {
+      const result = () => basket.addBagel(42)
+      expect(result).toThrowError('invalid sku - should be of type string')
+    })
+    it('- does not exist', () => {
+      const result = () => basket.addBagel()
+      expect(result).toThrowError('no sku passed')
+    })
   })
-  it('- length should be 3 or 4 char', () => {
-    const result = () => basket.addBagel('DBDHEFNGG')
-    expect(result).toThrowError('invalid sku - should contain 3 or 4 characters')
-  })
-  it('- not a string', () => {
-    const result = () => basket.addBagel(42)
-    expect(result).toThrowError('invalid sku - should be of type string')
-  })
-  it('- does not exist', () => {
-    const result = () => basket.addBagel()
-    expect(result).toThrowError('no sku passed')
-  })
-} )
 
   it('second item added', () => {
-    const expected = [new Bagel('BGLO', 1), new Bagel('BGLO', 2)]
+    const expected = [new Bagel('BGLO'), new Bagel('BGLP')]
     basket.addBagel('BGLO')
-    const result = basket.addBagel('BGLO')
+    const result = basket.addBagel('BGLP')
     expect(result).toEqual(expected)
   })
 
