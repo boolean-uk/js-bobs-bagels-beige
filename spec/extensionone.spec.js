@@ -37,7 +37,6 @@ describe('Deals', () => {
   })
 
   it('check for the coffee deal', () => {
-    const testBagel = new Bagel('COF')
     const expected = 'buy a coffee and plain bagel for 1.25'
     const result = basket.getBagelOffer('COF')
     expect(result).toEqual(expected)

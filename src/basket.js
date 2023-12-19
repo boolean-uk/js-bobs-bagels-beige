@@ -24,6 +24,10 @@ class Basket {
     return this.contents.map((item) => item.quantity).reduce((a, b) => a + b, 0)
   }
 
+  getBagelOffer(SKU) {
+    return new Bagel(SKU).offer
+  }
+
   // AddBagel
   addBagel(SKU, numOfBagels = 1) {
     const findBagel = this.contents.find((item) => item.SKU === SKU) || null
