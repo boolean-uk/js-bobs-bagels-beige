@@ -115,12 +115,12 @@ class Basket {
     return sum
   }
 
-  getSubtotal(sku) {
-    const { dealQuantity, dealPrice } = this.getDealInfo(sku)
+  getSubtotalWithDeals(item) {
+    const { dealQuantity, dealPrice } = this.getDealInfo(item.sku)
 
-    const bagelPrice = Bagel.getPriceOfBagel(sku)
+    const bagelPrice = Bagel.getPriceOfBagel(item.sku)
     // DUMMY DATA, TO BE REPLACE WITH Bagel.getQuantity(sku)
-    const bagelQuantity = 3
+    const bagelQuantity = item.quantity
 
     const totalDealPrice = this.getTotalDealsPrice(
       bagelQuantity,
@@ -146,18 +146,14 @@ class Basket {
     // this will work once bagels have a quantity property and each type only appears in the this.contents once
     this.contents.forEach((item) => {
       if (item.sku === 'COF') {
-        const { dealQuantity, dealPrice } = this.getdealInfo(item.sku)
+        const { dealQuantity, dealPrice } = this.getdealInfo(item)
         const numOfDiscounts = dealQuantity
-
-        // the following code is only relevant for the receipt and should be refactored / added elsewhere
-        // const fullPrice = Bagel.getPriceOfBagel('COF') + Bagel.getPriceOfBagel('BGLP')
-        // const savingPerCoffeeBought = (fullPrice - dealPrice)
-        // const totalSavings = numOfDiscounts * savingPerCoffeeBought
         const pricePaid = numOfDiscounts * dealPrice
-        total -= pricePaid
+        total += pricePaid
       }
       if (item.sku !== 'COF') {
-        total += this.getSubtotal(item.sku)
+        total += this.getSubtotalWithDeals(item)
+        console.log('ran')
       }
     })
 

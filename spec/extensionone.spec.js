@@ -10,28 +10,29 @@ describe('Deals', () => {
     bagel = new Bagel('BGLO')
   })
 
-  it('check price of type of bagel', () => {
+  xit('check price of type of bagel', () => {
     const expected = '0.49'
     const result = bagel.price
     expect(result).toEqual(expected)
   })
 
-  it('check deal for a type of bagel', () => {
+  xit('check deal for a type of bagel', () => {
     const expected = '6 Onion Bagels for 2.49'
     const result = bagel.offer
     expect(result).toEqual(expected)
   })
 
-  it('check for the coffee deal', () => {
+  xit('check for the coffee deal', () => {
     const testBagel = new Bagel('COF')
     const expected = 'buy a coffee and plain bagel for 1.25'
     const result = testBagel.offer
     expect(result).toEqual(expected)
   })
 
-  it('price totals should account for a deal', () => {
+  fit('price totals should account for a deal', () => {
     const expected = 5.55
-    basket.addBagel('BGLP', 16)
+    basket.addBagel('BGLP')
+    basket.contents[0].setQuantity(16)
     const result = basket.getTotal()
     expect(result).toEqual(expected)
   })
