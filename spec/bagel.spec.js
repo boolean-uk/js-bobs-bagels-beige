@@ -36,10 +36,10 @@ describe('Bagel:', () => {
       expect(result).toEqual(expected)
     })
 
-    // it('instance with invalid sku throw invalid sku error', () => {
-    //   const bagel = () => new Bagel('ZZZZ1234AAAA')
+    it('instance with invalid sku throw invalid sku error', () => {
+      const bagel = () => new Bagel('ZZZZ1234AAAA')
 
-    //   expect(bagel).toThrowError('sku not found')
-    // })
+      expect(bagel).toThrowError('sku not found')
+    })
   })
 })

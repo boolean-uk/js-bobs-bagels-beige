@@ -52,6 +52,10 @@ class Bagel {
   constructor(sku, quantity = 1) {
     const bagel = findBySku(sku)
 
+    if (typeof bagel !== 'object') {
+      throw new Error('sku not found')
+    }
+
     this.sku = bagel.sku
     this.variant = bagel.variant
     this.price = bagel.price
