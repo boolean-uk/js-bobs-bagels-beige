@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "prepare": "husky install",
-    "format": "npx prettier . --write",
+    "format": "npx prettier src --write && npx prettier spec --write",
     "test": "npx jasmine"
   },
   "repository": {
