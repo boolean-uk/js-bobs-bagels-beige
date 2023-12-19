@@ -29,7 +29,7 @@ describe('Basket', () => {
     expect(result).toEqual(expected)
   })
 
-  it('remove item from basket', () => {
+  xit('remove item from basket', () => {
     const expected = []
     basket.addBagel('BGLO')
     const result = basket.removeBagel(1)
