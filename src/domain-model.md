@@ -53,6 +53,11 @@ Verbs: Add, Remove, Know when (is full), Create, Know if (item isn't in basket)
 |         |                   |                                           |                                      |                                                                                          |
 |         | getTotal          |                                           |                                      | return sum of contents.items.price                                                       |
 |         |                   |                                           |                                      |                                                                                          |
-| Bagel   | getPrice          | sku : string                              | valid sku                            | return bagel.price                                                                       |
+| Bagel   |                   | sku : string, quantity : number           | valid sku, no quantity input         | getter returns inventory item object && item.quantity = 1                                |
+|         |                   | sku : string, quantity : number           | valid sku, quantity input            | getter returns inventory item object && item.quantity = quantity input                   |
+|         |                   | sku : string, quantity : number           | invalid sku                          | throw error 'sku not found'                                                              |
+|         |                   | sku : string, quantity : number           | quantity !>= 1                       | throw error 'quantity must be at least 1'                                                |
+|         |                   |                                           |                                      |                                                                                          |
+|         | getPrice          | sku : string                              | valid sku                            | return bagel.price                                                                       |
 |         |                   |                                           | invalid sku                          | throw error "sku not found"                                                              |
 |         |                   |                                           |                                      |                                                                                          |
