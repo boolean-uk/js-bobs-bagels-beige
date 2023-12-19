@@ -1,5 +1,3 @@
-const deals = require('../src/deals.js')
-
 const inventory = [
   {
     sku: 'BGLO',
@@ -50,17 +48,12 @@ const inventory = [
 function findBySku(sku) {
   return inventory.find((bagel) => bagel.sku === sku)
 }
-
 class Bagel {
   constructor(sku, id) {
     this.id = id
     this.sku = sku
     this.variant = findBySku(sku).variant
     this.price = findBySku(sku).price
-    this.offer =
-      sku === 'COF'
-        ? 'buy a coffee and plain bagel for 1.25'
-        : `${deals[sku][0]} ${this.variant} Bagels for ${deals[sku][1]}`
   }
 
   static getPriceOfBagel(sku) {
