@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-const Bagel = require('../src/bagel.js')
+const { Bagel } = require('../src/bagel.js')
 const Basket = require('../src/basket.js')
 
 // Would use a few more describe blocks to add clarity to the tests, especially to their messages
@@ -18,7 +18,7 @@ describe('Basket', () => {
     expect(result).toEqual(expected)
   })
 
-  it('– item price is returned before addition', () => {
+  fit('– item price is returned before addition', () => {
     const testBagel = new Bagel('BGLO')
     const expected = testBagel.price
     const result = basket.getPriceOfBagel('BGLO')

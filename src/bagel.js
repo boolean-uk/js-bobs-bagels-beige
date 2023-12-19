@@ -53,16 +53,17 @@ function findBySku(sku) {
 
 //TODO: rename Bagel to Item or smth more generic
 class Bagel {
-  constructor(sku, id) {
-    this.id = id;
+  constructor(sku) {
     this.sku = sku;
     this.type = findBySku(sku).variant;
     this.price = findBySku(sku).price;
+    this.quantity = 1;
     this.offer =
       sku === "COF"
         ? "buy a coffee and plain bagel for 1.25"
         : `${deals[sku.toLowerCase()].quantityRequired} ${this.type} Bagels for ${deals[sku.toLowerCase()].dealPrice}`;
-  }
+    
+    }
 
   static getPriceOfBagel(sku) {
     return findBySku(sku).price;
@@ -70,6 +71,18 @@ class Bagel {
 
   static getTypeOfBagel(sku) {
     return findBySku(sku).variant;
+  }
+
+  getSubtotal () {
+    return this.quantity * this.price
+  }
+
+  setQuantity (amount) {
+    if (amount > 0) {
+      this.quantity = amount
+    } else {
+      throw new Error("Quantity has to be bigger than zero!")
+    }
   }
 }
 

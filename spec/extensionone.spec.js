@@ -12,7 +12,7 @@ So that I can feel like a valued customer,
 I'd like to get the special deals whenever they apply.
 */
 
-const Bagel = require("../src/bagel.js");
+const { Bagel } = require("../src/bagel.js");
 const Basket = require("../src/basket.js");
 
 describe("Deals", () => {

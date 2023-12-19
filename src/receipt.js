@@ -1,4 +1,4 @@
-const Bagel = require('../src/bagel.js')
+const { Bagel } = require('../src/bagel.js')
 const Basket = require('../src/basket.js')
 
 class Receipt {
