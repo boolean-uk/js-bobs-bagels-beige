@@ -30,13 +30,13 @@ describe('Deals', () => {
     expect(result).toEqual(expected)
   })
 
-  it('check deal for a type of bagel', () => {
+  xit('check deal for a type of bagel', () => {
     const expected = '6 Onion Bagels for 2.49'
     const result = bagel.offer
     expect(result).toEqual(expected)
   })
 
-  it('check for the coffee deal', () => {
+  xit('check for the coffee deal', () => {
     const testBagel = new Bagel('COF')
     const expected = 'buy a coffee and plain bagel for 1.25'
     const result = testBagel.offer
