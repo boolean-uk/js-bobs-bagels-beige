@@ -6,7 +6,7 @@ class Basket {
     this.contents = []
     this.IDcounter = 0
     this.capacity = number
-    this.counts = {}
+    this.count = 0
   }
 
   // extract a method that updates IDcounter
@@ -64,7 +64,7 @@ class Basket {
   // returns a boolean or a string - should return only one data type
   basketIsFull() {
     if (this.contents.length >= this.capacity) {
-      return 'basket is full'
+      return true
     }
     return false
   }
@@ -86,17 +86,12 @@ class Basket {
      return total/100
     }
 */
-  countBagelsInBasket() {
-    this.counts = {}
+  setBagelCount() {
+    this.count = 0
     for (let i = 0; i < this.contents.length; i++) {
-      const sku = this.contents[i]['sku']
-      if (!this.counts.hasOwnProperty(sku)) {
-        this.counts[sku] = 1
-      } else {
-        this.counts[sku]++
-      }
+      this.count += this.contents[i].quantity
     }
-    return this.counts
+    return this.count
   }
 
   getDealInfo(sku) {
