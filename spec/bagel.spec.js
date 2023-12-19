@@ -12,7 +12,7 @@ describe('Bagel:', () => {
       quantity: 1
     }
 
-    const result = bagel.get
+    const result = bagel.details
 
     expect(result).toEqual(expected)
   })
