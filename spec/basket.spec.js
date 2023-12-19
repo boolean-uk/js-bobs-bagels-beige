@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-const { Bagel } = require('../src/bagel.js')
+const Bagel = require('../src/bagel.js')
 const Basket = require('../src/basket.js')
 
 // Would use a few more describe blocks to add clarity to the tests, especially to their messages
@@ -18,16 +18,17 @@ describe('Basket', () => {
     expect(result).toEqual(expected)
   })
 
-  fit('– item price is returned before addition', () => {
+  it('– item price is returned before addition', () => {
     const testBagel = new Bagel('BGLO')
     const expected = testBagel.price
     const result = basket.getPriceOfBagel('BGLO')
     expect(result).toEqual(expected)
   })
 
-  it('– item added', () => {
-    const expected = [new Bagel('BGLO', 1)]
+  it('item added', () => {
+    const expected = [new Bagel('BGLO')]
     const result = basket.addBagel('BGLO')
+    console.log(result)
     expect(result).toEqual(expected)
   })
   // is this overkill ? It looks like overkill (at least within the context of this exercise)

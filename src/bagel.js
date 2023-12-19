@@ -86,4 +86,4 @@ class Bagel {
   }
 }
 
-module.exports = { Bagel, findBySku };
+module.exports = Bagel;

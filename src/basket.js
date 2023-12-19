@@ -11,7 +11,7 @@ class Basket {
 
   // extract a method that updates IDcounter
   // numOfBagels = 1 -> why?, and why there?
-  addBagel(sku, numOfBagels = 1) {
+  addBagel(sku) {
     if (!sku) {
       throw new Error('no sku passed')
     }
@@ -25,14 +25,19 @@ class Basket {
       throw new Error('invalid sku - should be capitalised')
     }
 
-    for (let i = 0; i < numOfBagels; i++) {
-      if (!this.basketIsFull()) {
-        this.IDcounter++
-        const id = this.IDcounter
-        let bagelItem = new Bagel(sku, id)
-        this.contents.push(bagelItem)
-      }
+    if (this.basketIsFull()) {
+      throw new Error("Basket is full!")
     }
+
+    if (this.contains(sku)) {
+      const foundItem = this.contents.find((i) => i.sku === sku)
+      foundItem.setQuantity(foundItem.quantity + 1)
+      return this.contents
+    }
+
+    const bagelItem = new Bagel(sku)
+    this.contents.push(bagelItem)
+    
     return this.contents
   }
 
