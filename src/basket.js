@@ -46,15 +46,15 @@ class Basket {
     return !foundItemBySku ? false : true
   }
 
-  removeBagel(id) {
-    const foundItemById = this.contents.find((i) => i.id === id)
+  removeBagel(sku) {
+    const foundItemBySku = this.contents.find((i) => i.sku === sku)
 
-    if (!foundItemById) {
+    if (!foundItemBySku) {
       throw new Error('bagel not found')
     }
 
     for (let i = 0; i < this.contents.length; i++) {
-      if (this.contents[i].id === id) {
+      if (foundItemBySku) {
         this.contents.splice([i], 1)
         return this.contents
       }

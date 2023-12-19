@@ -59,7 +59,7 @@ describe('Basket', () => {
     expect(result).toEqual(expected)
   })
 
-  fit('quantity increases when same item is added', () => {
+  it('quantity increases when same item is added', () => {
     basket.addBagel('BGLO')
     const result = basket.addBagel('BGLO')
     expect(result[0].quantity).toEqual(2)
@@ -70,7 +70,7 @@ describe('Basket', () => {
   it('item removed', () => {
     const expected = []
     basket.addBagel('BGLO')
-    const result = basket.removeBagel(1)
+    const result = basket.removeBagel('BGLO')
 
     expect(result).toEqual(expected)
   })
