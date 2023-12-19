@@ -7,7 +7,7 @@ describe('Deals', () => {
 
   beforeEach(() => {
     basket = new Basket(31)
-    bagel = new Bagel('BGLO', 1)
+    bagel = new Bagel('BGLO')
   })
 
   it('check price of type of bagel', () => {

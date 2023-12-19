@@ -2,10 +2,10 @@ const Bagel = require('../src/bagel.js')
 const deals = require('../src/deals.js')
 
 class Basket {
-  constructor(number = 3) {
+  constructor(capacity = 3) {
     this.contents = []
     this.IDcounter = 0
-    this.capacity = number
+    this.capacity = capacity
     this.count = 0
   }
 
