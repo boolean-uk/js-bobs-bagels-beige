@@ -62,8 +62,8 @@ class Basket {
   }
 
   // returns a boolean or a string - should return only one data type
-  basketIsFull() {
-    if (this.contents.length >= this.capacity) {
+  isFull() {
+    if (this.setBagelCount() >= this.capacity) {
       return true
     }
     return false
